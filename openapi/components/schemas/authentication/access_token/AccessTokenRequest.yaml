@@ -15,4 +15,4 @@ properties:
   audience:
     description: The product which the access token is to be used for.
     type: string
-    example: INSERT_PRODUCT_SERVER_URL_HERE
+    example: https://giftcards.reloadly.com
