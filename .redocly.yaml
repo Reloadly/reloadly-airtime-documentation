@@ -9,6 +9,7 @@ lint:
     no-unused-components: error
 features.openapi:
   showObjectSchemaExamples: true
+  hideInfoSection: true
   disableDeepLinks: true
   nativeScrollbars: false
   sortPropsAlphabetically: false
