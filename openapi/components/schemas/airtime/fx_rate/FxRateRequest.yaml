@@ -1,0 +1,13 @@
+required: 
+  -  operatorId
+  -  amount
+type: object
+properties:
+  operatorId:
+    description: The operator's identification number.
+    type: integer
+    example: 341
+  amount:
+    description: The amount to be converted.
+    type: integer
+    example: 10

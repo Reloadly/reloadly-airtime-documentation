@@ -1,0 +1,97 @@
+# See https://redocly.com/docs/cli/configuration/ for more information.
+apis:
+  sample@v1: 
+    root: openapi/openapi.yaml
+lint:
+  extends:
+    - recommended
+  rules:
+    no-unused-components: error
+features.openapi:
+  showObjectSchemaExamples: true
+  disableDeepLinks: true
+  nativeScrollbars: false
+  sortPropsAlphabetically: false
+  pagination: 'section'
+  showConsole: true
+  showRightPanelToggle: false
+  showChangeLayoutButton: false
+  htmlTemplate: ./docs/index.html
+  corsProxyUrl: 'https://cors.redoc.ly'
+  theme:
+    colors:
+      http:
+        post: '#7700ff'
+        get: '#00faa3'
+      accent:
+        main: '#00163A'
+    sidebar:
+      width: 300px
+      rightLineColor: '#f5f7f9'
+      activeTextColor: '#7700ff'
+      backgroundColor: '#f5f7f9'
+      spacing:
+        paddingVertical: '18'
+        unit: 10
+    components:
+      buttons:
+        borderRadius: 15px
+        fontWeight: light
+      httpBadges:
+        color: '#ffffff'
+        sizes:
+          medium:
+            fontSize: 18px
+          small:
+            fontSize: 12px
+        fontFamily: "IBM Plex Mono, monospace"
+        fontWeight: bold
+        borderRadius: 15px
+    layout:
+      showDarkRightPanel: true
+      three-panel:
+        maxWidth:
+          small: 100%
+          medium: 100%
+          large: 100%
+    rightPanel:
+      width: 400px
+      backgroundColor: '#00163A'
+      panelBackgroundColor: '#324367'
+      panelControlsBackgroundColor: '#324367'
+    spacing:
+      sectionHorizontal: 75
+      sectionVertical: 50
+    typography:
+      fontFamily: "Ubuntu, sans-serif"
+      fontSize: "16px"
+      code:
+        fontFamily: "Courier Prime, monospace"
+        fontWeight: light
+      heading1:
+        fontFamily: "Ubuntu, sans-serif"
+        fontWeight: bold
+      heading2:
+        fontFamily: "Ubuntu, sans-serif"
+        fontWeight: light
+      heading3:
+        fontFamily: "Ubuntu, sans-serif"
+        fontWeight: light
+  generateCodeSamples:
+    languages:
+      - lang: curl
+        label: curl
+      - lang: Node.js
+        label: Node.js
+      - lang: Python
+        label: Python
+      - lang: 'C#'
+        label: 'C#'
+      - lang: Java8+Apache
+        label: Java 8 with Apache
+      - lang: Go
+        label: Go
+      - lang: PHP
+        label: PHP
+      - lang: Ruby
+        label: Ruby

@@ -1,0 +1,118 @@
+type: object
+properties:
+  transactionId:
+    description: This indicates the unique identification number of a top-up
+    type: integer
+    example: 4602843
+  status:
+    description: This indicates the status of a transaction. See more info here - include link.
+    type: string
+    example: SUCCESSFUL
+  operatorTransactionId:
+    description: This indicates the transaction identification number assigned by the operator of the receiving mobile number.
+    type: string
+    example: 7297929551:OrderConfirmed
+  customIdentifier:
+    description: This is the top-up's reference that is to be assigned by the sender.
+    type: string
+    example: This is example identifier 130
+  recipientPhone:
+    description: This indicates the top-up receiver's mobile number.
+    type: integer
+    example: 447951631337
+  senderPhone:
+    description: This indicates the sender's mobile number.
+    type: string
+    example: 11231231231
+  countryCode:
+    description: This indicates if the operator has any existing bundle discounts.
+    type: string
+    example: GB
+  operatorId:
+    description:  The identification number of the receiving mobile number's operator.
+    type: integer
+    example: 535
+  operatorName:
+    description: The name of the receiving mobile number's operator.
+    type: string
+    example: EE PIN England
+  discount:
+    description: This indicates if there was a discount on the top-up made and at what rate.
+    type: number
+    example: 63.37
+  discountCurrencyCode:
+    description: This indicates the currency code of the receiving mobile number.
+    type: string
+    example: NGN
+  requestedAmount:
+    description: This indicates the top-up amount sent by the originating account.
+    type: number
+    example: 3168.4
+  requestedAmountCurrencyCode:
+    description: This indicates the currency code of the originating account.
+    type: string
+    example: NGN
+  deliveredAmount:
+    description: This indicates the top-up amount received by the receiving mobile number.
+    type: number
+    example: 4.9985
+  deliveredAmountCurrencyCode:
+    description: This indicates the currency in which the top-up was delivered.
+    type: string
+    example: GBP
+  transactionDate:
+    description: This indicates the date and time the top-up was made.
+    type: string
+    example: 2021-12-06 08:13:39
+  pinDetail:
+    type: object
+    description: This contains information on how to process the PIN on the physical SIM. Note that this is only for operators that support PIN top-up.
+    properties:
+      serial:
+        description: This indicates the serial code of the PIN top-up.
+        type: integer
+        example: 558111
+      info:
+        description: This indicates information on how to utilize the top-up.
+        type: string
+        example: DIAL *611
+      value:
+        description: This indicates additional information on the PIN.
+        type: string
+        example:
+      code:
+        description: This indicates the code that is to be used to activate the top-up.
+        type: integer
+        example: 773709733097662
+      ivr:
+        description: This indicates the number to call for an interactive voice response.
+        type: string
+        example: "1-888-888-8888"
+      validity:
+        description: This indicates the validity of the PIN.
+        type: string
+        example: 30 days
+  balanceInfo:
+    type: object
+    description: This contains information of the top-up sender's account balance.
+    properties:
+      oldBalance:
+        description: This indicates the balance of your account before the top-up.
+        type: number
+        example: 5109.53732
+      newBalance:
+        description: This indicates the balance of your account after the top-up.
+        type: number
+        example: 2004.50532
+      currencyCode:
+        description: This indicates the currency symbol of your account.
+        type: string
+        example: NGN
+      currencyName:
+        description: This indicates the currency denomination of your account.
+        type: string
+        example: Nigerian Naira
+      updatedAt:
+        description: This indicates the time the top-up was made.
+        type: string
+        example: 2021-12-06 13:13:39 

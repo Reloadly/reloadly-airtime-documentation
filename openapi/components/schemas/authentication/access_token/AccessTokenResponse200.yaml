@@ -1,0 +1,18 @@
+type: object
+properties:
+  access_token:
+    description: The access token which can be used to make requests to Reloadly's API.
+    type: string
+    example: eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  scope:
+    description: The access token's scope.
+    type: string
+    example: developer
+  expires_in:
+    description: This indicates how long the access token is to last ( in seconds ) before expiring.
+    type: integer
+    example: 5184000
+  token_type:
+    description: The type of access token.
+    type: string
+    example: Bearer

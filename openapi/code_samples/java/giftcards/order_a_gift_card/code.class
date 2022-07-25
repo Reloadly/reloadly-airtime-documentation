@@ -1,0 +1,14 @@
+OkHttpClient client = new OkHttpClient().newBuilder()
+  .build();
+MediaType mediaType = MediaType.parse("application/json");
+RequestBody body = RequestBody.create(mediaType, "{\n    \"productId\": 120,\n    \"countryCode\": \"US\",\n    \"quantity\": 1,\n    \"unitPrice\": 1,\n    \"customIdentifier\": \"obucks10\",\n     \"senderName\": \"John Doe\",\n     \"recipientEmail\": \"anyone@email.com\" \n    \"recipientPhoneDetails\": { \n     \"countryCode\": \"NG\",\n    \"phoneNumber\": \"8031934751\"\n   } \n }"
+
+}");
+Request request = new Request.Builder()
+  .url("https://giftcards.reloadly.com/orders")
+  .method("POST", body)
+  .addHeader("Authorization", "Bearer eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+  .addHeader("Content-Type", "application/json")
+  .addHeader("Accept", "application/com.reloadly.giftcards-v1+json")
+  .build();
+Response response = client.newCall(request).execute();

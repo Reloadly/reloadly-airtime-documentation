@@ -1,0 +1,833 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Example.com
+  termsOfService: 'https://example.com/terms/'
+  contact:
+    email: contact@example.com
+    url: 'http://example.com/contact'
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  x-logo:
+    url: 'https://redocly.github.io/openapi-template/logo.png'
+  description: Documentation is nice
+externalDocs:
+  description: Find out how to create a GitHub repo for your OpenAPI definition.
+  url: 'https://github.com/Rebilly/generator-openapi-repo'
+tags:
+  - name: Echo
+    description: Example echo operations.
+  - name: User
+    description: Operations about users.
+  - name: Tag
+    description: This is a tag description.
+  - name: Access Token
+    description: >-
+      Reloadly issues access tokens (also called bearer tokens) that are used to
+      authorize API requests.
+  - name: Accounts Balance
+    description: >-
+      Reloadly enables you to retrieve the balance of your account in real time
+      while making transactions.
+  - name: Countries
+    description: >-
+      Reloadly provides access to multiple countries where top-ups can be sent
+      and received.
+servers:
+  - url: 'https://topups.reloadly.com'
+    description: Production
+  - url: 'https://topups-sandbox.reloadly.com'
+    description: Sandbox
+paths:
+  '/users/{username}':
+    parameters:
+      - name: pretty_print
+        in: query
+        description: Pretty print response
+        schema:
+          type: boolean
+    get:
+      tags:
+        - User
+      summary: Get user by user name
+      description: |
+        Some description of the operation.
+        You can use `Markdown` here.
+      operationId: getUserByName
+      parameters:
+        - name: username
+          in: path
+          description: The name that needs to be fetched
+          required: true
+          schema:
+            type: string
+        - name: with_email
+          in: query
+          description: Filter users without email
+          schema:
+            type: boolean
+      security:
+        - BearerToken: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              example:
+                username: user1
+                email: user@example.com
+        '403':
+          description: Forbidden
+          $ref: '#/components/responses/Problem'
+        '404':
+          description: User not found
+          $ref: '#/components/responses/Problem'
+    put:
+      tags:
+        - User
+      summary: Updated user
+      description: This can only be done by the logged in user.
+      operationId: updateUser
+      parameters:
+        - name: username
+          in: path
+          description: The name that needs to be updated
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerToken:
+            - 'write:users'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+        description: Updated user object
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Invalid user supplied
+          $ref: '#/components/responses/Problem'
+        '404':
+          description: User not found
+          $ref: '#/components/responses/Problem'
+  /echo:
+    post:
+      tags:
+        - Echo
+      summary: Echo test
+      description: Receive the exact message you've sent
+      operationId: echo
+      security:
+        - BearerToken: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              $ref: '#/components/headers/ExpiresAfter'
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                response:
+                  value: Hello world!
+            application/xml:
+              schema:
+                type: string
+            text/csv:
+              schema:
+                type: string
+        '400':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              example: Hello world!
+          application/xml:
+            schema:
+              type: string
+              example: Hello world!
+        description: Echo payload
+        required: true
+      x-codeSamples:
+        - lang: C#
+          source: "API.v1.Echo echo = new API.v1.Echo();\r\necho.message = \"Hello World!\");\r\nEchoResponse response = echo.post();\r\nif (response.statusCode == HttpStatusCode.Created)\r\n{\r\n  // Success\r\n}\r\nelse\r\n{\r\n  // Something wrong -- check response for errors\r\n  Console.WriteLine(response.getRawResponse());\r\n}\r\n"
+        - lang: PHP
+          source: "$form = new \\API\\Entities\\Echo();\r\n$form->setMessage(\"Hello World!\");\r\ntry {\r\n    $pet = $client->echo()->post($form);\r\n} catch (UnprocessableEntityException $e) {\r\n    var_dump($e->getErrors());\r\n}\r\n"
+  /pathItem:
+    post:
+      tags:
+        - Tag
+      summary: Operation summary
+      description: |
+        Operation description **Markdown**.
+      operationId: operationId
+      security:
+        - BearerToken: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Schema'
+        description: requestBody description
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Rate-Limit:
+              description: Calls per hour allowed by the user.
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              $ref: '#/components/headers/ExpiresAfter'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schema'
+        '400':
+          $ref: '#/components/responses/Problem'
+  /pathItemWithExamples:
+    post:
+      tags:
+        - Tag
+      summary: Operation summary with examples
+      description: |
+        Operation description **markdown**.
+      operationId: postPathItemWithExamples
+      security:
+        - BearerToken: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Schema'
+            examples:
+              mapName:
+                summary: My first example
+                description: My first example's description.
+                value:
+                  stringProperty: tada
+              mapNameDoesNotShowInDocsUnlessSummaryIsNotProvided:
+                value:
+                  stringProperty: checkmark
+        description: requestBody description
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              $ref: '#/components/headers/ExpiresAfter'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schema'
+        '400':
+          $ref: '#/components/responses/Problem'
+  /oauth/token:
+    servers:
+      - url: 'https://auth.reloadly.com'
+        description: Production
+    post:
+      tags:
+        - Access Token
+      summary: Create an access token
+      description: >-
+        Reloadly's authentication flow uses the OAuth 2.0 standard. With this
+        endpoint, you can create an access token that will be used when making
+        requests through our API endpoints or SDKs.
+      operationId: access-token
+      security:
+        - OAuth2Credentials: []
+      responses:
+        '200':
+          description: Successfully created an access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse200'
+              example:
+                access_token: eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                scope: developer
+                expires_in: 5184000
+                token_type: Bearer
+        '401':
+          description: Failed due to an unauthorized request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse401'
+              example:
+                timeStamp: 2022-01-06T10:57:50.000Z
+                message: Access Denied
+                path: /oauth/token
+                errorCode: INVALID_CREDENTIALS
+                infoLink: null
+                details: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessToken'
+        description: Payload Description
+        required: true
+      x-codeSamples:
+        - lang: C#
+          source: "using System;\r\nusing System.Threading.Tasks;\r\nusing System.Net.Http;\r\nusing System.Text;\r\nusing Newtonsoft.Json;\r\n\r\nnamespace WebAPIClient {\r\n  class Program {\r\n\r\n    static async Task Main(string[] args) {\r\n      await ApiCall();\r\n    }\r\n\r\n    private static async Task ApiCall() {\r\n      var json = JsonConvert.SerializeObject(new {\r\n        client_id = \"qwcLzXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \r\n        client_secret = \"7kscVxQZ32-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \r\n        grant_type = \"client_credentials\", \r\n        audience = \"https://topups.reloadly.com\"\r\n      });\r\n\r\n      var message = new HttpRequestMessage(HttpMethod.Get, \"https://auth.reloadly.com/oauth/token\");\r\n      \r\n      message.Headers.TryAddWithoutValidation(\"Content-Type\", \"application/json\");\r\n\r\n      using\r\n      var httpClient = new HttpClient();\r\n      var response = await httpClient.SendAsync(message);\r\n      var responseBody = await response.Content.ReadAsStringAsync();\r\n      var result = JsonConvert.DeserializeObject < dynamic > (responseBody);\r\n\r\n      Console.WriteLine(result);\r\n    }\r\n\r\n  }\r\n}"
+        - lang: PHP
+          source: "<?php\r\n\r\n$curl = curl_init();\r\n\r\ncurl_setopt_array($curl, array(\r\n  CURLOPT_URL => 'https://auth.reloadly.com/oauth/token',\r\n  CURLOPT_RETURNTRANSFER => true,\r\n  CURLOPT_ENCODING => '',\r\n  CURLOPT_MAXREDIRS => 10,\r\n  CURLOPT_TIMEOUT => 0,\r\n  CURLOPT_FOLLOWLOCATION => true,\r\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\r\n  CURLOPT_CUSTOMREQUEST => 'POST',\r\n  CURLOPT_POSTFIELDS =>'{\r\n\t\"client_id\":\"qwcLzXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\r\n\t\"client_secret\":\"7kscVxQZ32-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\r\n\t\"grant_type\":\"client_credentials\",\r\n\t\"audience\":\"https://topups.reloadly.com\"\r\n}',\r\n  CURLOPT_HTTPHEADER => array(\r\n    'Content-Type: application/json'\r\n  ),\r\n));\r\n\r\n$response = curl_exec($curl);\r\n\r\ncurl_close($curl);\r\necho $response;"
+        - lang: Golang
+          source: "package main\r\n\r\nimport (\r\n\t\"fmt\"\r\n\t\"io/ioutil\"\r\n\t\"net/http\"\r\n\t\"strings\"\r\n)\r\n\r\nfunc main() {\r\n\r\n\turl := \"https://auth.reloadly.com/oauth/token\"\r\n\tmethod := \"POST\"\r\n\r\n\tpayload := strings.NewReader(`{\r\n\t\"client_id\":\"qwcLzXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\r\n\t\"client_secret\":\"7kscVxQZ32-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\r\n\t\"grant_type\":\"client_credentials\",\r\n\t\"audience\":\"https://topups.reloadly.com\"\r\n}`)\r\n\r\n\tclient := &http.Client{}\r\n\treq, err := http.NewRequest(method, url, payload)\r\n\r\n\tif err != nil {\r\n\t\tfmt.Println(err)\r\n\t\treturn\r\n\t}\r\n\treq.Header.Add(\"Content-Type\", \"application/json\")\r\n\r\n\tres, err := client.Do(req)\r\n\tif err != nil {\r\n\t\tfmt.Println(err)\r\n\t\treturn\r\n\t}\r\n\tdefer res.Body.Close()\r\n\r\n\tbody, err := ioutil.ReadAll(res.Body)\r\n\tif err != nil {\r\n\t\tfmt.Println(err)\r\n\t\treturn\r\n\t}\r\n\tfmt.Println(string(body))\r\n}\r\n"
+        - lang: Java
+          source: "OkHttpClient client = new OkHttpClient().newBuilder()\r\n  .build();\r\nMediaType mediaType = MediaType.parse(\"application/json\");\r\nRequestBody body = RequestBody.create(mediaType, \"{\\n\\t\\\"client_id\\\":\\\"qwcLzXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\\\",\\n\\t\\\"client_secret\\\":\\\"7kscVxQZ32-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\\\",\\n\\t\\\"grant_type\\\":\\\"client_credentials\\\",\\n\\t\\\"audience\\\":\\\"https://topups.reloadly.com\\\"\\n}\");\r\nRequest request = new Request.Builder()\r\n  .url(\"https://auth.reloadly.com/oauth/token\")\r\n  .method(\"POST\", body)\r\n  .addHeader(\"Content-Type\", \"application/json\")\r\n  .build();\r\nResponse response = client.newCall(request).execute();"
+        - lang: Node JS
+          source: "var request = require('request');\r\nvar options = {\r\n  'method': 'POST',\r\n  'url': 'https://auth.reloadly.com/oauth/token',\r\n  'headers': {\r\n    'Content-Type': 'application/json'\r\n  },\r\n  body: JSON.stringify({\r\n    \"client_id\": \"qwcLzXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\r\n    \"client_secret\": \"7kscVxQZ32-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\r\n    \"grant_type\": \"client_credentials\",\r\n    \"audience\": \"https://topups.reloadly.com\"\r\n  })\r\n\r\n};\r\nrequest(options, function (error, response) {\r\n  if (error) throw new Error(error);\r\n  console.log(response.body);\r\n});"
+        - lang: Python
+          source: "import requests\r\nimport json\r\n\r\nurl = \"https://auth.reloadly.com/oauth/token\"\r\n\r\npayload = json.dumps({\r\n  \"client_id\": \"qwcLzXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\r\n  \"client_secret\": \"7kscVxQZ32-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\r\n  \"grant_type\": \"client_credentials\",\r\n  \"audience\": \"https://topups.reloadly.com\"\r\n})\r\nheaders = {\r\n  'Content-Type': 'application/json'\r\n}\r\n\r\nresponse = requests.request(\"POST\", url, headers=headers, data=payload)\r\n\r\nprint(response.text)"
+  /accounts/balance:
+    get:
+      tags:
+        - Accounts Balance
+      summary: View an account's balance
+      description: Retrieves the details of an account's balance.
+      operationId: accounts-balance
+      security:
+        - BearerToken: []
+      responses:
+        '200':
+          description: Successfully retrieved balance details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsBalanceResponse200'
+              example:
+                balance: 5500
+                currencyCode: USD
+                currencyName: US Dollar
+                updatedAt: 2018-12-04T08:45:51.000Z
+        '401':
+          description: Failed due to an unauthorized request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsBalanceResponse401'
+              example:
+                timeStamp: 2021-05-11T21:14:00.000Z
+                message: Full authentication is required to access this resource
+                path: /accounts/balance
+                errorCode: INVALID_TOKEN
+                infoLink: null
+                details: []
+        '404':
+          description: Failed because the request was made to an incorrect URL path
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsBalanceResponse404'
+              example:
+                timeStamp: 2021-09-11T11:54:00.000Z
+                status: 404
+                error: Not Found
+                message: No message available
+                path: /accounts/balnce
+      x-codeSamples:
+        - lang: C#
+          source: "using System;\r\nusing System.Threading.Tasks;\r\nusing System.Net.Http;\r\nusing System.Text;\r\nusing Newtonsoft.Json;\r\n\r\nnamespace WebAPIClient {\r\n  class Program {\r\n\r\n    static async Task Main(string[] args) {\r\n      await ApiCall();\r\n    }\r\n\r\n    private static async Task ApiCall() {\r\n\r\n      var message = new HttpRequestMessage(HttpMethod.Get, \"https://topups.reloadly.com/accounts/balance\");\r\n\r\n      message.Headers.TryAddWithoutValidation(\"Authorization\", \"Bearer eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\");\r\n      message.Headers.TryAddWithoutValidation(\"Accept\", \"application/com.reloadly.topups-v1+json\");\r\n      message.Headers.TryAddWithoutValidation(\"Content-Type\", \"application/json\");\r\n\r\n      using\r\n      var httpClient = new HttpClient();\r\n      var response = await httpClient.SendAsync(message);\r\n      var responseBody = await response.Content.ReadAsStringAsync();\r\n      var result = JsonConvert.DeserializeObject < dynamic > (responseBody);\r\n\r\n      Console.WriteLine(result);\r\n    }\r\n  }\r\n}"
+        - lang: PHP
+          source: "<?php\r\n\r\n$curl = curl_init();\r\n\r\ncurl_setopt_array($curl, array(\r\n  CURLOPT_URL => 'https://topups.reloadly.com/accounts/balance',\r\n  CURLOPT_RETURNTRANSFER => true,\r\n  CURLOPT_ENCODING => '',\r\n  CURLOPT_MAXREDIRS => 10,\r\n  CURLOPT_TIMEOUT => 0,\r\n  CURLOPT_FOLLOWLOCATION => true,\r\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\r\n  CURLOPT_CUSTOMREQUEST => 'GET',\r\n  CURLOPT_HTTPHEADER => array(\r\n    'Accept: application/com.reloadly.topups-v1+json',\r\n    'Authorization: Bearer eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',\r\n    'Content-Type: application/json'\r\n  ),\r\n));\r\n\r\n$response = curl_exec($curl);\r\n\r\ncurl_close($curl);\r\necho $response;"
+        - lang: Golang
+          source: "package main\r\n\r\nimport (\r\n\t\"fmt\"\r\n\t\"io/ioutil\"\r\n\t\"net/http\"\r\n)\r\n\r\nfunc main() {\r\n\r\n\turl := \"https://topups.reloadly.com/accounts/balance\"\r\n\tmethod := \"GET\"\r\n\r\n\tclient := &http.Client{}\r\n\treq, err := http.NewRequest(method, url, nil)\r\n\r\n\tif err != nil {\r\n\t\tfmt.Println(err)\r\n\t\treturn\r\n\t}\r\n\treq.Header.Add(\"Accept\", \"application/com.reloadly.topups-v1+json\")\r\n\treq.Header.Add(\"Authorization\", \"Bearer eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\")\r\n\treq.Header.Add(\"Content-Type\", \"application/json\")\r\n\r\n\tres, err := client.Do(req)\r\n\tif err != nil {\r\n\t\tfmt.Println(err)\r\n\t\treturn\r\n\t}\r\n\tdefer res.Body.Close()\r\n\r\n\tbody, err := ioutil.ReadAll(res.Body)\r\n\tif err != nil {\r\n\t\tfmt.Println(err)\r\n\t\treturn\r\n\t}\r\n\tfmt.Println(string(body))\r\n}\r\n"
+        - lang: Java
+          source: "OkHttpClient client = new OkHttpClient().newBuilder()\r\n  .build();\r\nRequest request = new Request.Builder()\r\n  .url(\"https://topups.reloadly.com/accounts/balance\")\r\n  .method(\"GET\", null)\r\n  .addHeader(\"Accept\", \"application/com.reloadly.topups-v1+json\")\r\n  .addHeader(\"Authorization\", \"Bearer eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\")\r\n  .addHeader(\"Content-Type\", \"application/json\")\r\n  .build();\r\nResponse response = client.newCall(request).execute();"
+        - lang: Node JS
+          source: "var myHeaders = new Headers();\r\nmyHeaders.append(\"Accept\", \"application/com.reloadly.topups-v1+json\");\r\nmyHeaders.append(\"Authorization\", \"Bearer eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\");\r\nmyHeaders.append(\"Content-Type\", \"application/json\");\r\n\r\nvar requestOptions = {\r\n  method: 'GET',\r\n  headers: myHeaders,\r\n  redirect: 'follow'\r\n};\r\n\r\nfetch(\"https://topups.reloadly.com/accounts/balance\", requestOptions)\r\n  .then(response => response.text())\r\n  .then(result => console.log(result))\r\n  .catch(error => console.log('error', error));"
+        - lang: Python
+          source: "import requests\r\nimport json\r\n\r\nurl = \"https://topups.reloadly.com/accounts/balance\"\r\n\r\npayload={}\r\nheaders = {\r\n  'Accept': 'application/com.reloadly.topups-v1+json',\r\n  'Authorization': 'Bearer eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',\r\n  'Content-Type': 'application/json'\r\n}\r\n\r\nresponse = requests.request(\"GET\", url, headers=headers, data=payload)\r\n\r\nprint(response.text)"
+  /countries:
+    get:
+      tags:
+        - Countries
+      summary: Get all countries
+      description: Retrieves the details of every country where a top-up can be made.
+      operationId: get-all-countries
+      security:
+        - BearerToken: []
+      responses:
+        '200':
+          description: Successfully retrieved details of all countries
+          content:
+            application/json:
+              example:
+                - isoName: AF
+                  name: Afghanistan
+                  currencyCode: AFN
+                  currencyName: Afghan Afghani
+                  currencySymbol: ؋
+                  flag: 'https://s3.amazonaws.com/rld-flags/af.svg'
+                  callingCodes:
+                    - '+93'
+                - isoName: AS
+                  name: American Samoa
+                  currencyCode: USD
+                  currencyName: US Dollar
+                  currencySymbol: $
+                  flag: 'https://s3.amazonaws.com/rld-flags/as.svg'
+                  callingCodes:
+                    - '+1684'
+                - isoName: AG
+                  name: Antigua and Barbuda
+                  currencyCode: XCD
+                  currencyName: East Caribbean Dollar
+                  currencySymbol: XCD
+                  flag: 'https://s3.amazonaws.com/rld-flags/ag.svg'
+                  callingCodes:
+                    - '+1268'
+        '401':
+          description: Failed due to an unauthorized request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsBalanceResponse401'
+              example:
+                timeStamp: 2021-05-11T21:14:00.000Z
+                message: Full authentication is required to access this resource
+                path: /accounts/balance
+                errorCode: INVALID_TOKEN
+                infoLink: null
+                details: []
+        '404':
+          description: Failed because the request was made to an incorrect URL path
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsBalanceResponse404'
+              example:
+                timeStamp: 2021-09-11T11:54:00.000Z
+                status: 404
+                error: Not Found
+                message: No message available
+                path: /accounts/balnce
+      x-codeSamples:
+        - lang: C#
+          source: "using System;\r\nusing System.Threading.Tasks;\r\nusing System.Net.Http;\r\nusing System.Text;\r\nusing Newtonsoft.Json;\r\n\r\nnamespace WebAPIClient {\r\n  class Program {\r\n\r\n    static async Task Main(string[] args) {\r\n      await ApiCall();\r\n    }\r\n\r\n    private static async Task ApiCall() {\r\n\r\n      var message = new HttpRequestMessage(HttpMethod.Get, \"https://topups.reloadly.com/accounts/balance\");\r\n\r\n      message.Headers.TryAddWithoutValidation(\"Authorization\", \"Bearer eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\");\r\n      message.Headers.TryAddWithoutValidation(\"Accept\", \"application/com.reloadly.topups-v1+json\");\r\n      message.Headers.TryAddWithoutValidation(\"Content-Type\", \"application/json\");\r\n\r\n      using\r\n      var httpClient = new HttpClient();\r\n      var response = await httpClient.SendAsync(message);\r\n      var responseBody = await response.Content.ReadAsStringAsync();\r\n      var result = JsonConvert.DeserializeObject < dynamic > (responseBody);\r\n\r\n      Console.WriteLine(result);\r\n    }\r\n  }\r\n}"
+        - lang: PHP
+          source: "<?php\r\n\r\n$curl = curl_init();\r\n\r\ncurl_setopt_array($curl, array(\r\n  CURLOPT_URL => 'https://topups.reloadly.com/accounts/balance',\r\n  CURLOPT_RETURNTRANSFER => true,\r\n  CURLOPT_ENCODING => '',\r\n  CURLOPT_MAXREDIRS => 10,\r\n  CURLOPT_TIMEOUT => 0,\r\n  CURLOPT_FOLLOWLOCATION => true,\r\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\r\n  CURLOPT_CUSTOMREQUEST => 'GET',\r\n  CURLOPT_HTTPHEADER => array(\r\n    'Accept: application/com.reloadly.topups-v1+json',\r\n    'Authorization: Bearer eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',\r\n    'Content-Type: application/json'\r\n  ),\r\n));\r\n\r\n$response = curl_exec($curl);\r\n\r\ncurl_close($curl);\r\necho $response;"
+        - lang: Golang
+          source: "package main\r\n\r\nimport (\r\n\t\"fmt\"\r\n\t\"io/ioutil\"\r\n\t\"net/http\"\r\n)\r\n\r\nfunc main() {\r\n\r\n\turl := \"https://topups.reloadly.com/accounts/balance\"\r\n\tmethod := \"GET\"\r\n\r\n\tclient := &http.Client{}\r\n\treq, err := http.NewRequest(method, url, nil)\r\n\r\n\tif err != nil {\r\n\t\tfmt.Println(err)\r\n\t\treturn\r\n\t}\r\n\treq.Header.Add(\"Accept\", \"application/com.reloadly.topups-v1+json\")\r\n\treq.Header.Add(\"Authorization\", \"Bearer eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\")\r\n\treq.Header.Add(\"Content-Type\", \"application/json\")\r\n\r\n\tres, err := client.Do(req)\r\n\tif err != nil {\r\n\t\tfmt.Println(err)\r\n\t\treturn\r\n\t}\r\n\tdefer res.Body.Close()\r\n\r\n\tbody, err := ioutil.ReadAll(res.Body)\r\n\tif err != nil {\r\n\t\tfmt.Println(err)\r\n\t\treturn\r\n\t}\r\n\tfmt.Println(string(body))\r\n}\r\n"
+        - lang: Java
+          source: "OkHttpClient client = new OkHttpClient().newBuilder()\r\n  .build();\r\nRequest request = new Request.Builder()\r\n  .url(\"https://topups.reloadly.com/accounts/balance\")\r\n  .method(\"GET\", null)\r\n  .addHeader(\"Accept\", \"application/com.reloadly.topups-v1+json\")\r\n  .addHeader(\"Authorization\", \"Bearer eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\")\r\n  .addHeader(\"Content-Type\", \"application/json\")\r\n  .build();\r\nResponse response = client.newCall(request).execute();"
+        - lang: Node JS
+          source: "var myHeaders = new Headers();\r\nmyHeaders.append(\"Accept\", \"application/com.reloadly.topups-v1+json\");\r\nmyHeaders.append(\"Authorization\", \"Bearer eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\");\r\nmyHeaders.append(\"Content-Type\", \"application/json\");\r\n\r\nvar requestOptions = {\r\n  method: 'GET',\r\n  headers: myHeaders,\r\n  redirect: 'follow'\r\n};\r\n\r\nfetch(\"https://topups.reloadly.com/accounts/balance\", requestOptions)\r\n  .then(response => response.text())\r\n  .then(result => console.log(result))\r\n  .catch(error => console.log('error', error));"
+        - lang: Python
+          source: "import requests\r\nimport json\r\n\r\nurl = \"https://topups.reloadly.com/accounts/balance\"\r\n\r\npayload={}\r\nheaders = {\r\n  'Accept': 'application/com.reloadly.topups-v1+json',\r\n  'Authorization': 'Bearer eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',\r\n  'Content-Type': 'application/json'\r\n}\r\n\r\nresponse = requests.request(\"GET\", url, headers=headers, data=payload)\r\n\r\nprint(response.text)"
+components:
+  securitySchemes:
+    OAuth2Credentials:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: 'https://auth.reloadly.com'
+          scopes:
+            developer: To be used in production or sandbox environments
+    BearerToken:
+      type: apiKey
+      in: header
+      name: bearer_token
+    BasicAuthentication:
+      type: http
+      scheme: basic
+  schemas:
+    Email:
+      description: User email address
+      type: string
+      format: test
+      example: john.smith@example.com
+    User:
+      type: object
+      properties:
+        username:
+          description: User supplied username
+          type: string
+          minLength: 4
+          example: John78
+        firstName:
+          description: User first name
+          type: string
+          minLength: 1
+          example: John
+        lastName:
+          description: User last name
+          type: string
+          minLength: 1
+          example: Smith
+        email:
+          $ref: '#/components/schemas/Email'
+    Problem:
+      type: object
+      additionalProperties: true
+      minProperties: 1
+      description: >-
+        The Problem Details JSON Object
+        [[RFC7807](https://tools.ietf.org/html/rfc7807)].
+      properties:
+        type:
+          type: string
+          description: >-
+            A URI reference [[RFC3986](https://tools.ietf.org/html/rfc3986)]
+            that identifies the problem type. It should provide human-readable
+            documentation for the problem type. When this member is not present,
+            its value is assumed to be "about:blank".
+          format: uri
+        title:
+          type: string
+          description: >-
+            A short, human-readable summary of the problem type. It SHOULD NOT
+            change from occurrence to occurrence of the problem, except for
+            purposes of localization.
+        status:
+          type: integer
+          description: The HTTP status code.
+          minimum: 400
+          maximum: 599
+        detail:
+          type: string
+          description: >-
+            A human-readable explanation specific to this occurrence of the
+            problem.
+        instance:
+          type: string
+          description: >-
+            A URI reference that identifies the specific occurrence of the
+            problem.  It may or may not yield further information if
+            dereferenced.
+    Schema:
+      type: object
+      title: Scalars
+      properties:
+        stringProperty:
+          description: Property name's description (type is string)
+          type: string
+          examples:
+            - example
+            - sample
+        readOnlyStringProperty:
+          description: Notice this only appears in the response.
+          type: string
+          readOnly: true
+          examples:
+            - example
+        writeOnlyStringProperty:
+          description: Notice this only appears in the request.
+          type: string
+          writeOnly: true
+          examples:
+            - example
+        minLengthString:
+          description: Property name's description (type is string)
+          type: string
+          minLength: 4
+          examples:
+            - example
+        maxLengthString:
+          description: Property name's description (type is string)
+          type: string
+          maxLength: 140
+          examples:
+            - example
+        minAndMaxLengthString:
+          description: Property name's description (type is string)
+          type: string
+          minLength: 4
+          maxLength: 140
+          examples:
+            - example
+        nullableOrStringProperty:
+          description: Property name's description (type is string or null)
+          type:
+            - string
+            - null
+          examples:
+            - example
+        stringEnumValues:
+          description: Property name's description (type is string)
+          type: string
+          enum:
+            - sample
+            - example
+            - specimen
+            - case
+            - instance
+            - illustration
+        stringDateTime:
+          description: 'Property name''s description (type is string, format is date-time)'
+          type: string
+          format: date-time
+        stringDate:
+          description: 'Property name''s description (type is string, format is date-time)'
+          type: string
+          format: date
+        stringEmail:
+          description: 'Property name''s description (type is string, format is email)'
+          type: string
+          format: email
+        stringIpAddressV4:
+          description: 'Property name''s description (type is string, format is ipv4 address)'
+          type: string
+          format: ipv4
+        stringIpAddressV6:
+          description: 'Property name''s description (type is string, format is ipv6 address)'
+          type: string
+          format: ipv6
+        stringPassword:
+          description: 'Property name''s description (type is string, format is password)'
+          type: string
+          format: password
+        stringHostname:
+          description: 'Property name''s description (type is string, format is hostname)'
+          type: string
+          format: hostname
+        stringUri:
+          description: 'Property name''s description (type is string, format is uri)'
+          type: string
+          format: uri
+        stringUuid:
+          description: 'Property name''s description (type is string, format is uuid)'
+          type: string
+          format: uuid
+        numberProperty:
+          description: Property name's description (type is number)
+          type: number
+          example: 8
+        numberFloat:
+          description: 'Property name''s description (type is number, format is float)'
+          type: number
+          format: float
+        numberDouble:
+          description: 'Property name''s description (type is number, format is double)'
+          type: number
+          format: double
+        numberGreaterThanOrEquals:
+          description: Property name's description (type is number)
+          type: number
+          minimum: 5
+        numberGreaterThan:
+          description: Property name's description (type is number)
+          type: number
+          exclusiveMinimum: 5
+        numberLessThan:
+          description: Property name's description (type is number)
+          type: number
+          exclusiveMaximum: 8
+        numberLessThanOrEquals:
+          description: Property name's description (type is number)
+          type: number
+          maximum: 8
+        numberRange:
+          description: Property name's description (type is number)
+          type: number
+          minimum: 5
+          maximum: 8
+        numberRangeExclusiveMaximum:
+          description: Property name's description (type is number)
+          type: number
+          minimum: 5
+          exclusiveMaximum: 8
+        numberRangeExclusiveMinimumAndMaximum:
+          description: Property name's description (type is number)
+          type: number
+          exclusiveMinimum: 5
+          exclusiveMaximum: 8
+        numberMultipleOf:
+          description: Property name's description (type is number)
+          type: number
+          multipleOf: 2
+        integerType:
+          description: Property name's description (type is integer)
+          type: integer
+        integer32bit:
+          description: 'Property name''s description (type is integer, format is int32)'
+          type: integer
+          format: int32
+        integer64bit:
+          description: 'Property name''s description (type is integer, format is int64)'
+          type: integer
+          format: int64
+        booleanProperty:
+          description: Property name's description (type is boolean)
+          type: boolean
+    AccessToken:
+      type: object
+      properties:
+        client_id:
+          description: Your account's client ID
+          type: string
+          example: qwcLzXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        client_secret:
+          description: Your account's client secret
+          type: string
+          example: 7kscVxQZ32-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        grant_type:
+          description: The access type being specified
+          type: string
+          example: client_credentials
+        audience:
+          description: The product which the access token is to be used for
+          type: string
+          example: 'https://topups.reloadly.com'
+    AccessTokenResponse200:
+      type: object
+      properties:
+        access_token:
+          description: >-
+            The access token which can be used to make requests to Reloadly's
+            API
+          type: string
+          example: eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        scope:
+          description: The access token's scope
+          type: string
+          example: developer
+        expires_in:
+          description: >-
+            This indicates how long the access token is to last ( in seconds )
+            before expiring
+          type: integer
+          example: 5184000
+        token_type:
+          description: The type of access token
+          type: string
+          example: Bearer
+    AccessTokenResponse401:
+      type: object
+      properties:
+        timeStamp:
+          description: The exact time the request for the access token was made
+          type: string
+          example: 2022-01-06T10:57:50.000Z
+        message:
+          description: The error message returned for the failed request
+          type: string
+          example: Access Denied
+        path:
+          description: The URL Path which the request was made through
+          type: string
+          example: /oauth/token
+        errorCode:
+          description: The error code associated with the reason for the failed request
+          type: string
+          example: INVALID_CREDENTIALS
+        infoLink:
+          description: A link to further information about the error
+          type: string
+          example: null
+        details:
+          description: Further details of the error returned for the failed request
+          type: array
+          example: null
+    AccountsBalanceResponse200:
+      type: object
+      properties:
+        balance:
+          description: The account balance retrieved
+          type: integer
+          example: 5500
+        currencyCode:
+          description: The currency abbreviation of the account
+          type: string
+          example: USD
+        currencyName:
+          description: The currency denomination of the account
+          type: string
+          example: US Dollar
+        updatedAt:
+          description: The last time a transaction was made on the account
+          type: string
+          example: 2018-12-04T08:45:51.000Z
+    AccountsBalanceResponse401:
+      type: object
+      properties:
+        timeStamp:
+          description: The exact time the request for the account's balance was made
+          type: string
+          example: 2021-05-11T21:14:00.000Z
+        message:
+          description: The error message returned for the failed request
+          type: string
+          example: Full authentication is required to access this resource
+        path:
+          description: The URL Path which the request was made through
+          type: string
+          example: /accounts/balance
+        errorCode:
+          description: The error code associated with the reason for the failed request
+          type: string
+          example: INVALID_TOKEN
+        infoLink:
+          description: A link to further information about the error
+          type: string
+          example: null
+        details:
+          description: Further details of the error returned for the failed request
+          type: array
+          example: null
+    AccountsBalanceResponse404:
+      type: object
+      properties:
+        timeStamp:
+          description: The exact time the request for the account's balance was made
+          type: string
+          example: 2021-09-11T11:54:00.000Z
+        status:
+          description: The HTTP status code returned after the request was made
+          type: integer
+          example: 404
+        error:
+          description: The error code received after the request was made
+          type: string
+          example: /accounts/balance
+        message:
+          description: The error message received after the request was made
+          type: string
+          example: null
+        path:
+          description: The URL path to which the request was made
+          type: string
+          example: null
+  responses:
+    Problem:
+      description: Problem
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+  headers:
+    ExpiresAfter:
+      description: date in UTC when token expires
+      schema:
+        type: string
+        format: date-time

@@ -1,0 +1,26 @@
+type: object
+properties:
+  timeStamp:
+    description: The exact time the request for the access token was made.
+    type: string
+    example: 2022-01-06 10:57:50
+  message:
+    description: The error message returned for the failed request.
+    type: string
+    example: Access Denied
+  path:
+    description: The URL Path which the request was made through.
+    type: string
+    example: /oauth/token
+  errorCode:
+    description: The error code associated with the reason for the failed request.
+    type: string
+    example: INVALID_CREDENTIALS
+  infoLink:
+    description: A link to further information about the error.
+    type: string
+    example: 
+  details: 
+    description: Further details of the error returned for the failed request.
+    type: array
+    example: 

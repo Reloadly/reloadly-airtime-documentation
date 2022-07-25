@@ -1,0 +1,21 @@
+type: object
+properties:
+  id:
+    description: This indicates the identification number of the operator.
+    type: integer
+    example: 174
+  name:
+    description: This indicates the operator's name.
+    type: string
+    example: Natcom Haiti
+  fxRate:
+    description: This indicates the exchange rate of the operator's currency to your account's currency. For example, if your account is in Indian Rupees( INR ) and you are making a top-up to a number registered to  Natcom Haiti, the exchange rate returned will be 1.16 ( 1 INR = 1.16 HTG ).
+    type: number
+    example: 465
+  currencyCode:
+    description: This indicates the currency symbol of the country where the operator is registered.
+    type: string
+    example: HTG
+ 
+
+

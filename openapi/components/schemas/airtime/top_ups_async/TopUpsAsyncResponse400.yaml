@@ -1,0 +1,26 @@
+type: object
+properties:
+  timeStamp:
+    description: The exact time the async top-up request was made.
+    type: string
+    example: 2022-01-06 18:37:10
+  message:
+    description: The error message returned for the failed request.
+    type: string
+    example: Recipient phone number is not valid
+  path:
+    description: The URL path which the request was made through.
+    type: string
+    example: /topups-async
+  errorCode:
+    description: The error code associated with the reason for the failed request.
+    type: string
+    example: INVALID_RECIPIENT_PHONE
+  infoLink:
+    description: A link to further information about the error.
+    type: string
+    example: 
+  details: 
+    description: Further details of the error returned for the failed request.
+    type: array
+    example: []

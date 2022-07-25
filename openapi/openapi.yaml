@@ -1,0 +1,206 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Airtime
+  description: Making an airtime top-up comes in handy for different applications - personal and businesslike. Reloadly's Airtime API handles these use cases by providing endpoints that grant you access to over 700 operators in more than 140 countries. <br> <br> With this outreach, you can send airtime and also subscribe to data bundles in different currencies. The most important data you will need to send airtime successfully is the recipient's mobile number. 
+  termsOfService: 'https://www.reloadly.com/terms-of-use'
+  contact:
+    email: support@reloadly.com
+    url: 'https://www.reloadly.com/'
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: Authentication
+    description: Reloadly uses access tokens ( or bearer tokens ) to authenticate requests and grant access to our APIs. Access tokens differ across our various products. This means that you can only use an access token generated for the airtime service on the Airtime API, the same goes for other products. <br><br> Also, Reloadly has two operating environments - **Production** which allows you work with live credentials while building real world applications and **Sandbox** which helps you access our APIs in test mode and simulate real-like scenarios. Below is a table that shows the server URL for Reloadly's Airtime products. <br><br> <table><thead><tr><th>Product</th><th>Environment</th><th>Service URL</th></tr></thead><tbody><tr><td>Airtime</td><td>Production</td><td>https://topups.reloadly.com</td></tr><tr><td></td><td>Sandbox</td><td>https://topups-sandbox.reloadly.com</td></tr><tr><td>Number Lookup</td><td>Production</td><td>https://topups.reloadly.com</td></tr><tr><td></td><td>Sandbox</td><td>https://topups-sandbox.reloadly.com</td></tr></tbody></table> <br><br> To get an access token, first obtain your **client id** and **client secret** from the <a href="https://www.reloadly.com/">Reloadly dashboard</a>. Then make a **POST** request with the payload format provided in the code sample section.
+  - name: Account Balance
+    description: The **Balance** feature lets you view the details of your account balance in real-time. Information provided by the **Balance** feature includes an account's balance, the currency name and denomination of the account, and the last time funds were used from the account. 
+  - name: Countries
+    description: Information on countries can be handy when making decisions about what countries should be accessed and what regions should be used when making an airtime recharge. The Airtime **Countries** feature allows you to get details on over 140 countries where airtime top-ups can be made. <br><br> Data included in the details are the country's name, currency code, currency name, currency symbol, country's flag, and calling code. The country's ISO code which is a two-letter country code that serves as a personal identifier for each country is also included.   
+  - name: Operators
+    description: The data on **Operators** provides insight into the mobile operators that can be used to make an international or local airtime recharge. With the **Operators** feature, you can get details of over 700 operators located in different regions. You can also automatically detect the details of a mobile phone number's operator. <br> <br> Some of the information included in the operator's details are the operator's name, denomination type, FX rate where applicable, discount, country's details, and operator ID. The operator's FX rate is calculated against the currency of the airtime sender's account. 
+    
+  - name: FX Rates
+    description: Airtime **FX Rates** provide details on the exchange rate of an operator at which an airtime recharge will be made. This is helpful for the following use cases <br> <ul><li>Cross-border digital payments</li><li>Airtime remittances</li><li>International top-ups</li></ul> <br> Important data included in the details for **FX Rates** are the operator's ID, name, current exchange rate ( this is pegged against your account's currency ), and currency code. 
+  - name: Commissions
+    description: The data on **Commissions** provides you with details of operators that offer a percentage discount for every airtime recharge. This is useful in getting the best value when making top-ups across various operators. You can also view discount information for a particular operator. Information made accessible via the **Commissions** feature includes the operator ID, discount percentage, discount status, and operator's country code while working with the discount. 
+  - name: Promotions
+    description: The **Promotions** feature allows you to view details of ongoing promotions being carried out by operators in various regions. This provides top-up services such as special airtime and bundle offers to mobile numbers located in various regions. <br> Information that can be accessed while working with **Promotions** includes the promotion's ID, extensive details of the promotion, the promotion's timeframe, and the currency denomination(s) in which the promotion is being carried out.
+    
+  - name: Top-ups
+    description: The **Top-ups** feature works with other features in the Airtime product to make recharges to a mobile number. Actions you can carry out include making an instant airtime recharge to both local and international mobile numbers as well as making an asynchronous recharge that enables you to monitor and receive notifications about its status. <br> Some of the information you can view includes the transaction ID, the custom identifier for each top-up, the discount applied to each top-up, and the amount sent via the top-up.
+    
+  - name: Transactions  
+    description:  The Airtime **Transactions** feature serves as a ledger that enables you to access information on every top-up carried out on an account. Every transaction has two unique IDs — one is a serial ID for each transaction done by an account and the other is a transaction ID assigned by the operator where the top-up was made. Important data in the details of every airtime transaction include the transaction ID, transaction date, operator's name, recipient's mobile number, sender's mobile number, and the discount applied to the transaction  —  if there was any. 
+  
+  - name: Number Lookup
+    description: Reloadly offers a mobile number portability lookup service that enables you to retrieve the network operator details of a mobile number. <br> <br> There is a rising trend where mobile numbers are ported to a different network operator. The carrier lookup service reveals the current network operator of these numbers and optimizes their routes for actions like calls, SMS, and data bundles. <br> <br> This service allows a user to retrieve details of a mobile number regardless of whether it has been ported. The user may make an HTTP **GET** or **POST** request to retrieve the details of the mobile number. <br> <br> <blockquote  style="padding:15px; background:#f2f2f2; border-radius:5px"> Reloadly has an open-source library used to format, parse, and validate the authenticity of an international phone number. You can check it out <a href="https://github.com/google/libphonenumber">here on GitHub</a></blockquote>. <br> <br> <blockquote style="padding:15px; background:#f2f2f2; border-radius:5px"> Do note that this is a **PAID** service. As such, there is a pricing schedule attached to this service. You can find more details on the pricing through <a href="https://www.reloadly.com" target=__blank__>your dashboard</a>. Alternatively, if you have any questions, you can always reach out to us via our <a href="https://join.slack.com/t/reloadly-developers/shared_invite/zt-qflikche-fwiFA5Sxtst2mXzvJBPO3w">developer community</a></blockquote>. <br> <br> <blockquote style="font-size:16px; padding:30px 15px; color:#000000; background:rgba(212, 31, 28, 0.07); border-radius:5px">To avoid any authentication errors, ensure you are working with the right access token for the Number Lookup product. You can find out more details in the <a href="https://docs.reloadly.com/tag/Authentication">Authentication</a> section.</blockquote>
+ 
+
+components:
+  securitySchemes:
+    BearerToken:
+      type: http
+      scheme: bearer
+
+security:
+  - BearerToken: [] 
+  
+servers:
+  - url: https://auth.reloadly.com
+  
+paths:
+  /oauth/token:
+    $ref: 
+        paths/access-token.yaml
+    servers:
+      - url: https://auth.reloadly.com
+  /accounts/balance:
+    $ref: paths/airtime-accounts-balance.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Airtime Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Airtime Sandbox
+      
+  /countries:
+    $ref: paths/airtime-get-all-countries.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /countries/{countrycode}:
+    $ref: paths/airtime-get-country-by-iso.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /operators:
+    $ref: paths/airtime-get-all-operators.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /operators/{operatorid}:
+    $ref: paths/airtime-get-operator-by-id.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /operators/auto-detect/phone/{phone}/countries/{countryisocode}:
+    $ref: paths/airtime-auto-detect-an-operator.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /operators/countries/{countrycode}:
+    $ref: paths/airtime-get-operator-by-iso.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /operators/fx-rate:
+    $ref: paths/airtime-fx-rate.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /operators/commissions:
+    $ref: paths/airtime-get-all-commissions.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /operators/{operatorid}/commissions:
+    $ref: paths/airtime-get-commission-by-id.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /promotions:
+    $ref: paths/airtime-get-all-promotions.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /promotions/{promotionid}:
+    $ref: paths/airtime-get-promotion-by-id.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /promotions/country-codes/{countrycode}:
+    $ref: paths/airtime-get-promotion-by-iso.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /promotions/operators/{operatorid}:
+    $ref: paths/airtime-get-promotion-by-operator-id.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /topups:
+    $ref: paths/airtime-top-ups.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /topups-async:
+    $ref: paths/airtime-top-ups-async.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /topups/{transactionId}/status:
+    $ref: paths/airtime-top-ups-status.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /topups/reports/transactions:
+    $ref: paths/airtime-get-all-transactions.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /topups/reports/transactions/{transactionId}:
+    $ref: paths/airtime-get-transaction-by-id.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  
+  /operators/mnp-lookup/phone/{phone}/countries/{countryCode}:
+    $ref: paths/number-lookup-get.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox
+  /mnp-lookup/operators:
+    $ref: paths/number-lookup-post.yaml
+    servers:
+      - url: https://topups.reloadly.com
+        description: Production
+      - url: https://topups-sandbox.reloadly.com
+        description: Sandbox        

@@ -1,0 +1,74 @@
+get:
+  tags:
+    - Transactions
+  summary: Get Transaction by ID
+  description: Retrieve the details of a top-up transaction by making a request with its identification number.
+  operationId: airtime/get-transaction-by-id
+  parameters:
+    - in: path
+      name: transactionId
+      schema:
+        type: integer
+        description: This indicates the identification number of the transaction to be retrieved.
+        example: 101
+      required: true
+  responses:
+    '200':
+      description: Successfully retrieved details of a transaction.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_transaction_by_id/GetTransactionByIdResponse200.yaml
+          example:
+              transactionId: 4602843
+              status: SUCCESSFUL
+              operatorTransactionId: 7297929551:OrderConfirmed
+              customIdentifier: This is example identifier 130
+              recipientPhone: 447951631337
+              recipientEmail: null
+              senderPhone: 11231231231
+              countryCode: GB
+              operatorId: 535
+              operatorName: EE PIN England
+              discount: 63.37
+              discountCurrencyCode: NGN
+              requestedAmount: 3168.4
+              requestedAmountCurrencyCode: NGN
+              deliveredAmount: 4.9985
+              deliveredAmountCurrencyCode: GBP
+              transactionDate: 2021-12-06 08:13:39
+              pinDetail:
+                serial: 558111
+                info1: DIAL *611
+                info2: DIAL *611
+                info3: DIAL *611
+                value: null
+                code: 773709733097662
+                ivr: 1-888-888-8888
+                validity: 30 days
+              balanceInfo: null  
+    '401':
+      description: Failed due to an unauthorized request.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_transaction_by_id/GetTransactionByIdResponse401.yaml
+          example:
+            timeStamp: 2021-02-15 21:14:00
+            message: Full authentication is required to access this resource
+            path: /topups/reports/transactions/4602843
+            errorCode: INVALID_TOKEN
+            infoLink: null
+            details: []
+    '404':
+      description: Failed because the request was made to an incorrect URL path.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_transaction_by_id/GetTransactionByIdResponse404.yaml
+          example:
+            timeStamp: 2021-09-11 11:54:00
+            status: 404
+            error: Not Found
+            message: No message available
+            path: /topups/reports/transaction/4602843

@@ -1,0 +1,9 @@
+OkHttpClient client = new OkHttpClient().newBuilder()
+  .build();
+Request request = new Request.Builder()
+  .url("https://giftcards.reloadly.com/countries/ES/products")
+  .method("GET", null)
+  .addHeader("Authorization", "Bearer eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+  .addHeader("Accept", "application/com.reloadly.giftcards-v1+json")
+  .build();
+Response response = client.newCall(request).execute();

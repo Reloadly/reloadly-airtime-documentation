@@ -1,0 +1,56 @@
+get:
+  tags:
+    - Countries
+  summary: Get Country by ISO code
+  description: Retrieve the details of a country by making a request with its ISO code.
+  operationId: airtime/get-country-by-iso
+  parameters:      
+    - in: path
+      name: countrycode
+      description: The country's ISO Code.
+      required: true
+      schema:
+        type: string
+        example: US
+  responses:
+    '200':
+      description: Successfully retrieved details of a country
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_country_by_iso/GetCountryByIsoResponse200.yaml
+          example:
+            - isoName: AG
+              name: Antigua and Barbuda
+              currencyCode: XCD
+              currencyName: East Caribbean Dollar
+              currencySymbol: XCD
+              flag: https://s3.amazonaws.com/rld-flags/ag.svg
+              callingCodes:
+                - "+1268"
+    '401':
+      description: Failed due to an unauthorized request
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_country_by_iso/GetCountryByIsoResponse401.yaml
+          example:
+            timeStamp: 2021-03-15 21:14:00
+            message: Full authentication is required to access this resource
+            path: /countries/PK
+            errorCode: INVALID_TOKEN
+            infoLink: null
+            details: []
+    '404':
+      description: Failed because the request was made to an incorrect URL path
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_country_by_iso/GetCountryByIsoResponse404.yaml
+          example:
+            timeStamp: 2021-02-11 11:54:00
+            message: Country not found and/or not currently supported
+            path: /countries/PKGG
+            errorCode: COUNTRY_NOT_SUPPORTED
+            infoLink:
+            details: []

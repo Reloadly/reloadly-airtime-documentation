@@ -1,0 +1,117 @@
+get:
+  tags:
+    - Operators
+  summary: Get Operators
+  description: Retrieve the details of every operator that can be used to send or receive a top-up.
+  operationId: airtime/get-all-operators
+  parameters:
+    - in: query
+      name: includeBundles
+      schema:
+        type: boolean  
+        description: Indicates if any airtime and data bundles being offered by the operator should be included in the API response. Default value is true.
+        example: true
+    - in: query
+      name: includeData
+      schema:
+        type: boolean
+        description: Indicates if any airtime or data plans being offered by the operator should be included in the API response. Default value is true.
+        example: true
+    - in: query
+      name: suggestedAmountsMap
+      schema:
+        type: boolean
+        description: Indicates if this field should be returned as a response. Default value is  false.
+        example: false
+    - in: query
+      name: size
+      schema:
+        type: integer
+        description: This indicates the number of operators to be retrieved on a page. Default value is 200.
+        example: 10
+    - in: query
+      name: page
+      schema:
+        type: integer
+        description: This indicates the page of the operator list being retrieved. Default value is 1.
+        example: 2
+
+  responses:
+    '200':
+      description: Successfully retrieved details of all operators
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_all_operators/GetAllOperatorsResponse200.yaml
+          example:
+           content:
+            - id: 88
+              operatorId: 88
+              name: Movistar Colombia
+              bundle: false
+              data: false
+              pin: false
+              supportsLocalAmounts: false
+              denominationType: RANGE
+              senderCurrencyCode: USD
+              senderCurrencySymbol: $
+              destinationCurrencyCode: COP
+              destinationCurrencySymbol: $
+              commission: 4.42
+              internationalDiscount: 4.42
+              localDiscount: 0.00
+              mostPopularAmount: null
+              minAmount: 5.00
+              maxAmount: 5.00
+              localMinAmount: null
+              localMaxAmount: null
+              country:
+                isoName: CO
+                name: Colombia
+              fx:
+                rate: 2192.1867
+                currencyCode: COP
+              logoUrls:
+                - https://s3.amazonaws.com/rld-operator/3f4a8bcd3268-size-1.png
+                - https://s3.amazonaws.com/rld-operator/3f4a8bcd3268-size-2.png
+                - https://s3.amazonaws.com/rld-operator/3f4a8bcd3268-size-3.png
+              fixedAmounts: []
+              fixedAmountsDescriptions: []
+              localFixedAmounts: []
+              localFixedAmountsDescriptions: []
+              suggestedAmounts:
+                - 7
+                - 10
+                - 15
+              suggestedAmountsMap:
+                "7": 19482.51
+                "10": 27832.16
+                "15": 41748.23
+              promotions: []
+            - {}
+            - {}
+    '401':
+      description: Failed due to an unauthorized request
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_all_operators/GetAllOperatorsResponse401.yaml
+          example:
+            timeStamp: 2021-02-15 21:14:00
+            message: Full authentication is required to access this resource
+            path: /operators
+            errorCode: INVALID_TOKEN
+            infoLink: null
+            details: []
+    '404':
+      description: Failed because the request was made to an incorrect URL path
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_all_operators/GetAllOperatorsResponse404.yaml
+          example:
+            timeStamp: 2021-09-11 11:54:00
+            status: 404
+            error: Not Found
+            message: No message available
+            path: /operator

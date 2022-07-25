@@ -1,0 +1,50 @@
+required: 
+  -  operatorId
+  -  amount
+  -  recipientPhone
+type: object
+properties:
+  operatorId:
+    description: This indicates the operator's identification number.
+    type: string
+    example: "535"
+  amount:
+    description: This indicates the amount of airtime or data that is to be recharged.
+    type: string
+    example: "5.00"
+  useLocalAmount:
+    description: This indicates if the recharge is to be made in the operator's local currency. Default is false.
+    type: boolean
+    example: true
+  customIdentifier:
+    description: This indicates the transaction reference of the recharge. Note that each transaction reference is to be unique. Once a reference has been used for a top-up, it cannot be reused. <br> <br> _Ensure you change the sample custom identifier in the payload before making a request so as to avoid any errors._
+    type: string
+    example: This is example identifier 130
+  recipientEmail:
+    description: This indicates the top-up receiver's email (only applicable to Nauta Cuba top-ups).
+    type: string
+    example: peter@nauta.com.cu
+  recipientPhone:
+    type: object
+    description: This contains information on the top-up recipient's phone details.
+    properties:
+      countryCode:
+        description: This indicates the ISO code of the receiving mobile number's country.
+        type: string
+        example: GB
+      number: 
+        description: This indicates the mobile number receiving the top-up.
+        type: string
+        example: "447951731337"
+  senderPhone:
+    type: object
+    description: This contains information on the top-up sender's phone details.
+    properties:
+      countryCode:
+        description: This indicates the ISO code of the sender's country.
+        type: string
+        example: CA
+      number:
+        description: This indicates the mobile number of the top-up's sender.
+        type: string
+        example: "11231231231"

@@ -1,0 +1,18 @@
+type: object
+properties:
+  balance:
+    description: The account balance retrieved
+    type: number
+    example: 5000.23
+  currencyCode:
+    description: The currency abbreviation of the account
+    type: string
+    example: USD
+  currencyName:
+    description: The currency denomination of the account
+    type: string
+    example: US Dollar
+  updatedAt:
+    description: The last time a transaction was made on the account
+    type: string
+    example: 2022-02-04 08:45:51

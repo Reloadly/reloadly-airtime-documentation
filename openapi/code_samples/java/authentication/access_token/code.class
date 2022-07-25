@@ -1,0 +1,10 @@
+OkHttpClient client = new OkHttpClient().newBuilder()
+  .build();
+MediaType mediaType = MediaType.parse("application/json");
+RequestBody body = RequestBody.create(mediaType, "{\n\t\"client_id\":\"qwcLzXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\n\t\"client_secret\":\"7kscVxQZ32-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\n\t\"grant_type\":\"client_credentials\",\n\t\"audience\":\"INSERT_PRODUCT_SERVER_URL_HERE\"\n}");
+Request request = new Request.Builder()
+  .url("https://auth.reloadly.com/oauth/token")
+  .method("POST", body)
+  .addHeader("Content-Type", "application/json")
+  .build();
+Response response = client.newCall(request).execute();

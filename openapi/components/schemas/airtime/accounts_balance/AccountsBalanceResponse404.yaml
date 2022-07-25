@@ -1,0 +1,22 @@
+type: object
+properties:
+  timeStamp:
+    description: The exact time the request for the account's balance was made
+    type: string
+    example: 2021-09-11 11:54:00
+  status:
+    description: The HTTP status code returned after the request was made
+    type: number
+    example: 404
+  error:
+    description: The error code received after the request was made
+    type: string
+    example: Not Found
+  message:
+    description: The error message received after the request was made
+    type: string
+    example: No message available
+  path:
+    description: The URL path to which the request was made
+    type: string
+    example: /account/balance

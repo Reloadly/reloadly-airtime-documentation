@@ -1,0 +1,49 @@
+get:
+  tags:
+    - Countries
+  summary: Get Countries
+  description: Retrieve the details of every country where a top-up can be made.
+  operationId: airtime/get-all-countries
+  responses:
+    '200':
+      description: Successfully retrieved details of all countries
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_all_countries/GetAllCountriesResponse200.yaml
+          example:
+            - isoName: AF
+              name: Afghanistan
+              currencyCode: AFN
+              currencyName: Afghan Afghani
+              currencySymbol: ؋
+              flag: https://s3.amazonaws.com/rld-flags/af.svg
+              callingCodes:
+                - "+93"
+            - {}
+            - {}
+    '401':
+      description: Failed due to an unauthorized request
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_all_countries/GetAllCountriesResponse401.yaml
+          example:
+            timeStamp: 2021-02-15 21:14:00
+            message: Full authentication is required to access this resource
+            path: /countries
+            errorCode: INVALID_TOKEN
+            infoLink: null
+            details: []
+    '404':
+      description: Failed because the request was made to an incorrect URL path
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_all_countries/GetAllCountriesResponse404.yaml
+          example:
+            timeStamp: 2021-09-11 11:54:00
+            status: 404
+            error: Not Found
+            message: No message available
+            path: /countrie

@@ -1,0 +1,79 @@
+get:
+  tags:
+    - Top-ups
+  summary: Get Top-up Status
+  description: Retrieve the real-time status of a top-up by making a request with its identification number.
+  operationId: airtime/top-ups-status
+  parameters:
+    - in: path
+      name: transactionId
+      description: The transaction identification number of a top-up
+      required: true
+      schema:
+        type: integer
+        example: 13
+  responses:
+    '200':
+      description: Successfully retrieved details of a top-up
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/top_ups_status/TopUpsStatusResponse200.yaml
+          example:
+            transactionId: 4602843
+            status: SUCCESSFUL
+            operatorTransactionId: 7297929551:OrderConfirmed
+            customIdentifier: This is example identifier 130
+            recipientPhone: 447951631337
+            recipientEmail: null
+            senderPhone: 11231231231
+            countryCode: GB
+            operatorId: 535
+            operatorName: EE PIN England
+            discount: 63.37
+            discountCurrencyCode: NGN
+            requestedAmount: 3168.4
+            requestedAmountCurrencyCode: NGN
+            deliveredAmount: 4.9985
+            deliveredAmountCurrencyCode: GBP
+            transactionDate: 2021-12-06 08:13:39
+            pinDetail:
+              serial: 558111
+              info1: DIAL *611
+              info2: DIAL *611
+              info3: DIAL *611
+              value: null
+              code: 773709733097662
+              ivr: 1-888-888-8888
+              validity: 30 days
+            balanceInfo: 
+              oldBalance: 5109.53732
+              newBalance: 2004.50532
+              currencyCode: NGN
+              currencyName: Nigerian Naira
+              updatedAt: 2021-12-06 13:13:39
+    '401':
+      description: Failed due to an unauthorized request
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/top_ups_status/TopUpsStatusResponse401.yaml
+          example:
+            timeStamp: 2021-03-15 21:14:00
+            message: Full authentication is required to access this resource
+            path: /topups/4602843/status
+            errorCode: INVALID_TOKEN
+            infoLink: null
+            details: []
+    '404':
+      description: Failed because the request was made to an incorrect URL path
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/top_ups_status/TopUpsStatusResponse404.yaml
+          example:
+            timeStamp: 2021-02-11 11:54:00
+            status: 404
+            error: Not Found
+            message: No message available
+            path: /topups/26545/statu

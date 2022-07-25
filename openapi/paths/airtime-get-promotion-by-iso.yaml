@@ -1,0 +1,60 @@
+get:
+  tags:
+    - Promotions
+  summary: Get Promotions by ISO Code
+  description: Retrieve the details of every promotion going on in a country by making a request with its ISO code.
+  operationId: airtime/get-promotion-by-iso
+  parameters:
+    - in: path
+      name: countrycode
+      schema:
+        type: string
+        description: The ISO code of the country whose promotions are to be retrieved.
+        example: US
+      required: true
+
+  responses:
+    '200':
+      description: Successfully retrieved details of all the promotions being offered in a country.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_promotion_by_iso/GetPromotionByIsoResponse200.yaml
+          example:
+           content:
+              - promotionId: 1
+                operatorId: 129
+                title: Tigo El Salvador From 25 Jun 2018 00:00 To 25 July...
+                title2: Get 500 MB and 150 minutes for USA or Canada
+                description: For top ups of $10 or more, customer...
+                startDate: Mon, 25 Jun 2018 06:00:00 +0000
+                endDate: Tue, 26 Jun 2018 05:59:00 +0000
+                denominations: USD 10 and up
+                localDenominations: null
+              - {}
+              - {}
+    '401':  
+      description: Failed due to an unauthorized request.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_promotion_by_iso/GetPromotionByIsoResponse401.yaml
+          example:
+            timeStamp: 2021-02-15 21:14:00
+            message: Full authentication is required to access this resource
+            path: /promotions/country-codes/US
+            errorCode: INVALID_TOKEN
+            infoLink: null
+            details: []
+    '404':
+      description: Failed because the request was made to an incorrect URL path.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_promotion_by_iso/GetPromotionByIsoResponse404.yaml
+          example:
+            timeStamp: 2021-09-11 11:54:00
+            status: 404
+            error: Not Found
+            message: No message available
+            path: /promotions/country-code/US

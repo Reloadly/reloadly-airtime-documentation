@@ -1,0 +1,91 @@
+get:
+  tags:
+    - Operators
+  summary: Get Operator by ID
+  description: Retrieve the details of an operator by making a request with its identification number
+  operationId: airtime/get-operator-by-id
+  parameters:
+    - in: path
+      name: operatorid
+      description: The operator's identification number.
+      required: true
+      schema:
+        type: integer
+        example: 341
+  responses:
+    '200':
+      description: Successfully retrieved details of an operator
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_operator_by_id/GetOperatorByIdResponse200.yaml
+          example:
+            id: 88
+            operatorId: 88
+            name: Movistar Colombia
+            bundle: false
+            data: false
+            pin: false
+            supportsLocalAmounts: false
+            denominationType: RANGE
+            senderCurrencyCode: USD
+            senderCurrencySymbol: $
+            destinationCurrencyCode: COP
+            destinationCurrencySymbol: $
+            commission: 4.42
+            internationalDiscount: 4.42
+            localDiscount: 0.00
+            mostPopularAmount: null
+            minAmount: 5.00
+            maxAmount: 5.00
+            localMinAmount: null
+            localMaxAmount: null
+            country:
+              isoName: CO
+              name: Colombia
+            fx:
+              rate: 2192.1867
+              currencyCode: COP
+            logoUrls:
+              - https://s3.amazonaws.com/rld-operator/3f4a8bcd3268-size-1.png
+              - https://s3.amazonaws.com/rld-operator/3f4a8bcd3268-size-2.png
+              - https://s3.amazonaws.com/rld-operator/3f4a8bcd3268-size-3.png
+            fixedAmounts: []
+            fixedAmountsDescriptions: []
+            localFixedAmounts: []
+            localFixedAmountsDescriptions: []
+            suggestedAmounts:
+              - 7
+              - 10
+              - 15
+            suggestedAmountsMap:
+              "7": 19482.51
+              "10": 27832.16
+              "15": 41748.23
+            promotions: []
+    '401':
+      description: Failed due to an unauthorized request
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_operator_by_id/GetOperatorByIdResponse401.yaml
+          example:
+            timeStamp: 2021-03-15 21:14:00
+            message: Full authentication is required to access this resource
+            path: /operators/128
+            errorCode: INVALID_TOKEN
+            infoLink: null
+            details: []
+    '404':
+      description: Failed because the request was made to an incorrect URL path
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_operator_by_id/GetOperatorByIdResponse404.yaml
+          example:
+            timeStamp: 2021-02-11 11:54:00
+            message: Operator not found for given id
+            path: /operators/12522
+            errorCode: null
+            infoLink: null
+            details: []

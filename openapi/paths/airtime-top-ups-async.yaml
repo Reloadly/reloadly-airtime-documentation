@@ -1,0 +1,60 @@
+post:
+  tags:
+    - Top-ups
+  summary: Make Asynchronous Top-up
+  description: This endpoint helps users by returning a  **transactionId**  for every top-up transaction made. This ID can then be used to requery the transaction and get its real-time status. <br> <br> <a href="https://faq.reloadly.com/en/articles/5250158-introduction-to-asynchronous-top-ups" target="_blank">This guide</a> provides more information on how to work with async top-ups.
+  operationId: airtime/top-ups-async
+  responses:
+    '200':
+      description: Successfully retrieved a transaction identification number.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/top_ups_async/TopUpsAsyncResponse200.yaml
+          example:
+            transactionId: 4602843
+    '400':
+      description: Failed because the request was made with an incorrect parameter in the payload.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/top_ups_async/TopUpsAsyncResponse400.yaml
+          example:
+            timeStamp: 2022-01-06 18:37:10
+            message: Recipient phone number is not valid
+            path: /topups-async
+            errorCode: INVALID_RECIPIENT_PHONE
+            infoLink: null
+            details: [] 
+    '401':
+      description: Failed due to an unauthorized request.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/top_ups_async/TopUpsAsyncResponse401.yaml
+          example:
+            timeStamp: 2022-01-06 18:37:10
+            message: Full authentication is required to access this resource
+            path: /topups-async
+            errorCode: INVALID_TOKEN
+            infoLink: null
+            details: []
+    '404':
+      description: Failed because the request was made to an incorrect URL path.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/top_ups_async/TopUpsAsyncResponse404.yaml
+          example:
+            timeStamp: 2021-09-11 11:54:00
+            status: 404
+            error: Not Found
+            message: No message available
+            path: /topups-asyn
+  requestBody:
+    description: Payload Description
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/airtime/top_ups_async/TopUpsAsyncRequest.yaml

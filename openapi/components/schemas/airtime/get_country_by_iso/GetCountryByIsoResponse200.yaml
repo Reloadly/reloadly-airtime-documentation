@@ -1,0 +1,31 @@
+type: object
+properties:
+  isoName:
+    description: This indicates the ISO code of the country.
+    type: string
+    example: AF
+  name:
+    description: This indicates the country's name.
+    type: string
+    example: Afghanistan
+  currencyCode:
+    description: This indicates the code of the country's currency.
+    type: string
+    example: AFN
+  currencyName:
+    description: This indicates the name of the country's currency.
+    type: string
+    example: Afghan Afghani
+  currencySymbol:
+    description: This indicates the symbol of the country's currency.
+    type: string
+    example: ؋
+  flag:
+    description: This is a link to an SVG image of the country's flag.
+    type: string
+    example: "https://s3.amazonaws.com/rld-flags/af.svg"
+  callingCodes:
+    type: array
+    items:
+      type: string
+      example: '+93'

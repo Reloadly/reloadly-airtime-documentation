@@ -1,0 +1,65 @@
+get:
+  tags:
+    - Promotions
+  summary: Get Promotions
+  description: Retrieve the details of every promotion being issued by any operator available on Reloadly.
+  operationId: airtime/get-all-promotions
+  parameters:
+    - in: query
+      name: size
+      schema:
+        type: integer
+        description: This indicates the number of promotions to be retrieved on a page. Default value is 200.
+        example: 10
+    - in: query
+      name: page
+      schema:
+        type: integer
+        description: This indicates the page of the promotions list being retrieved. Default value is 1.
+        example: 1
+
+  responses:
+    '200':
+      description: Successfully retrieved details of all promotions.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_all_promotions/GetAllPromotionsResponse200.yaml
+          example:
+           content:
+            - promotionId: 1
+              operatorId: 129
+              title: Tigo El Salvador From 25 Jun 2018 00:00 To 25 July...
+              title2: Get 500 MB and 150 minutes for USA or Canada
+              description: For top ups of $10 or more, customer...
+              startDate: Mon, 25 Jun 2018 06:00:00 +0000
+              endDate: Tue, 26 Jun 2018 05:59:00 +0000
+              denominations: USD 10 and up
+              localDenominations: null
+            - {}
+            - {}
+    '401':
+      description: Failed due to an unauthorized request.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_all_promotions/GetAllPromotionsResponse401.yaml
+          example:
+            timeStamp: 2021-02-15 21:14:00
+            message: Full authentication is required to access this resource
+            path: /promotions
+            errorCode: INVALID_TOKEN
+            infoLink: null
+            details: []
+    '404':
+      description: Failed because the request was made to an incorrect URL path.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_all_promotions/GetAllPromotionsResponse404.yaml
+          example:
+            timeStamp: 2021-09-11 11:54:00
+            status: 404
+            error: Not Found
+            message: No message available
+            path: /promotion

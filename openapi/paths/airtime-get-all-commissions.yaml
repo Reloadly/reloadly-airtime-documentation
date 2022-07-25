@@ -1,0 +1,66 @@
+get:
+  tags:
+    - Commissions
+  summary: Get Commissions
+  description: Retrieve the details of every discount being issued by all the airtime and data operators available on Reloadly.
+  operationId: airtime/get-all-commissions
+  parameters:
+    - in: query
+      name: size
+      schema:
+        type: integer
+        description: This indicates the number of operators offering discounts to be retrieved on a page. Default value is 200.
+        example: 10
+    - in: query
+      name: page
+      schema:
+        type: integer
+        description: This indicates the page of the discounts list being retrieved. Default value is 1.
+        example: 1
+
+  responses:
+    '200':
+      description: Successfully retrieved details of all discounts
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_all_commissions/GetAllCommissionsResponse200.yaml
+          example:
+           content:
+            - operator:
+                operatorId: 1
+                name: Afghan Wireless Afghanistan
+                countryCode: AF
+                status: true
+                bundle: false
+              percentage: 10
+              internationalPercentage: 10
+              localPercentage: 0
+              updatedAt: 2021-06-26 03:36:16
+            - {}
+            - {}
+    '401':
+      description: Failed due to an unauthorized request
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_all_commissions/GetAllCommissionsResponse401.yaml
+          example:
+            timeStamp: 2021-02-15 21:14:00
+            message: Full authentication is required to access this resource
+            path: /commissions
+            errorCode: INVALID_TOKEN
+            infoLink: null
+            details: []
+    '404':
+      description: Failed because the request was made to an incorrect URL path
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_all_commissions/GetAllCommissionsResponse404.yaml
+          example:
+            timeStamp: 2021-09-11 11:54:00
+            status: 404
+            error: Not Found
+            message: No message available
+            path: /commission

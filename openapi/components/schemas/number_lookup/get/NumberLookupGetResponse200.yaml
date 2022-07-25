@@ -1,0 +1,136 @@
+type: object
+properties:
+  id:
+    description: The operator's identification number.
+    type: integer
+    example:
+  operatorId:
+    description: The operator's identification number.
+    type: integer
+    example:
+  name:
+    description: The operator's name.
+    type: string
+    example: 
+  bundle:
+    description: This indicates if the operator has any existing bundle plans.
+    type: boolean
+    example: 
+  data:
+    description: This indicates if the operator has any existing data plans.
+    type: boolean
+    example: 
+  pin:
+    description: This indicates if the operator supports PIN transactions.
+    type: boolean
+    example: 
+  supportsLocalAmounts:
+    description: This indicates if the operator can make top-ups in local amounts.
+    type: boolean
+    example:
+  denominationType:
+    description: This indicates if the operator makes top-ups through a fixed amount or a range of amounts. Options include FIXED and RANGE.
+    type: string
+    example: 
+  senderCurrencyCode:
+    description: This indicates the currency code of the account where the top-up is being made from.
+    type: string
+    example: 
+  senderCurrencySymbol:
+    description: This indicates the currency symbol of the account where the top-up is being made from.
+    type: string
+    example: 
+  destinationCurrencyCode:
+    description: This indicates the currency code of the mobile number where the top-up is being sent to.
+    type: string
+    example: 
+  destinationCurrencySymbol:
+    description: This indicates the currency symbol of the mobile number where the top-up is being sent to.
+    type: string
+    example: 
+  commission:
+    description: This indicates if the operator offers a commission or discount.
+    type: integer
+    example:
+  internationalDiscount:
+    description: This indicates if the operator offers a discount for top-ups made to foreign numbers.
+    type: integer
+    example: 
+  localDiscount:
+    description: This indicates if the operator offers a discount for top-ups made to local numbers.
+    type: integer
+    example:
+  mostPopularAmount:
+    description: This indicates the amount that is often used to make a top-up.
+    type: integer
+    example: 
+  minAmount:
+    description: This indicates the minimum amount that can be used to make a top-up.
+    type: integer
+    example: 
+  maxAmount:
+    description: This indicates the maximum amount that can be used to make a top-up.
+    type: integer
+    example: 
+  localMinAmount:
+    description: This indicates the minimum amount that can be used to make a top-up locally.
+    type: integer
+    example: 
+  localMaxAmount:
+    description: This indicates the maximum amount that can be used to make a top-up locally.
+    type: integer
+    example: 
+  country:
+    type: object
+    properties:
+      isoName:
+        description:  This indicates the country's ISO code.
+        type: string
+        example: 
+      name:
+        description: This indicates the country's name.
+        type: string
+        example: 
+  fx:
+    type: object
+    properties:
+      rate:
+        description: This indicates the FX rate at which the top-up will be made.
+        type: integer
+        example: 
+      currencyCode:
+        description: This indicates the code of the currency at which the top-up will be made.
+        type: string
+        example: 
+  logoUrls:
+    description: These are links to SVG images of the operator's logos.
+    type: array
+    example:
+  fixedAmounts:
+    description: This indicates the fixed amounts that a top-up can be made in with the operator.
+    type: array
+    example: 
+  fixedAmountsDescriptions:
+    description: This indicates the descriptions for the operator's fixed amounts.
+    type: array
+    example: 
+  localFixedAmounts:
+    description: This indicates the local fixed amounts that a top-up can be made in with the operator.
+    type: array
+    example:
+  localFixedAmountsDescriptions:
+    description: This indicates the descriptions for the operator's local fixed amounts.
+    type: array
+    example: 
+  suggestedAmounts:
+    description: This indicates the suggested amounts that can be used to make a top-up with the operator.
+    type: array
+    example: 
+  suggestedAmountsMap:
+    description: This indicates the suggested amounts that can be mapped through.
+    type: array
+    example: 
+  promotions:
+    description: This indicates the promotions currently offered by the operator.
+    type: array
+    example: 

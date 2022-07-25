@@ -1,0 +1,29 @@
+type: object
+properties:
+  timeStamp:
+    description: The exact time the request for the country's details was made.
+    type: string
+    example: 2021-04-11 13:24:00
+  message:
+    description: The error message received after the request was made.
+    type: string
+    example: Country not found and/or not currently supported
+  path:
+    description: The URL path to which the request was made.
+    type: string
+    example: /countries/PKGG
+  errorCode:
+    description: The error code received after the request was made.
+    type: string
+    example: COUNTRY_NOT_SUPPORTED
+  infoLink:
+    description: A link to further information about the error.
+    type: string
+    example: 
+  details: 
+    description: Further details of the error returned for the failed request.
+    type: array
+    example: 
+ 
+  
+ 

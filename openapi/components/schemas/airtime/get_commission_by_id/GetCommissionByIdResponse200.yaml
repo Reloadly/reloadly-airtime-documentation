@@ -1,0 +1,52 @@
+type: object
+properties:
+  content:
+    type: array
+    description: An array containing details of every discount accessible via Reloadly.
+    items:
+      type: object
+      properties:
+        operator:
+          type: object
+          properties:
+            operatorId:
+              description: This indicates the operator's identification number.
+              type: integer
+              example: 1
+            name:
+              description: This indicates the operator's name.
+              type: string
+              example: Afghan Wireless Afghanistan
+            countryCode:
+              description: This indicates the ISO code of the country where the operator is registered.
+              type: string
+              example: AF
+            status:
+              description: This indicates if the operator has any existing discounts.
+              type: boolean
+              example: true
+            data:
+              description: This indicates if the operator has any existing data discounts.
+              type: boolean
+              example: false
+            bundle:
+              description: This indicates if the operator has any existing bundle discounts.
+              type: boolean
+              example: false
+        percentage:
+          description: This indicates the percentage discount for every top-up.
+          type: number
+          example: 10.0
+        internationalPercentage:
+          description: This indicates the percentage discount for international top-ups.
+          type: number
+          example: 10.0
+        localPercentage:
+          description: This indicates the percentage discount for local top-ups.
+          type: number
+          example: 10.0
+        updatedAt:
+          description: This indicates the time the discount was first created by the operator.
+          type: number
+          example: 10.0
+          

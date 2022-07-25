@@ -1,0 +1,43 @@
+get:
+  tags:
+    - Account Balance
+  summary: View Account Balance
+  description: Retrieve the details of your account's balance.
+  operationId: airtime/accounts-balance
+  responses:
+    '200':
+      description: Successfully retrieved balance details
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/accounts_balance/AccountsBalanceResponse200.yaml
+          example:
+            balance: 5000
+            currencyCode: USD
+            currencyName: US Dollar
+            updatedAt: 2021-12-04 08:45:51
+    '401':
+      description: Failed due to an unauthorized request
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/accounts_balance/AccountsBalanceResponse401.yaml
+          example:
+            timeStamp: 2021-05-11 21:14:00
+            message: Full authentication is required to access this resource
+            path: /accounts/balance
+            errorCode: INVALID_TOKEN
+            infoLink: null
+            details: []
+    '404':
+      description: Failed because the request was made to an incorrect URL path
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/accounts_balance/AccountsBalanceResponse404.yaml
+          example:
+            timeStamp: 2021-09-11 11:54:00
+            status: 404
+            error: Not Found
+            message: No message available
+            path: /accounts/balnce

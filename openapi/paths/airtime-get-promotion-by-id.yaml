@@ -1,0 +1,58 @@
+get:
+  tags:
+    - Promotions
+  summary: Get Promotion by ID
+  description: Retrieve the details of a promotion by making a request with its identification number.
+  operationId: airtime/get-promotion-by-id
+  parameters:
+    - in: path
+      name: promotionid
+      schema:
+        type: integer
+        description: The promotion's identification number.
+        example: 5583
+      required: true
+  responses:
+    '200':
+      description: Successfully retrieved details of a promotion.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_promotion_by_id/GetPromotionByIdResponse200.yaml
+          example:
+           content:
+              promotionId: 1
+              operatorId: 129
+              title: Tigo El Salvador From 25 Jun 2018 00:00 To 25 July...
+              title2: Get 500 MB and 150 minutes for USA or Canada
+              description: For top ups of $10 or more, customer...
+              startDate: Mon, 25 Jun 2018 06:00:00 +0000
+              endDate: Tue, 26 Jun 2018 05:59:00 +0000
+              denominations: USD 10 and up
+              localDenominations: null
+    '401':
+      description: Failed due to an unauthorized request.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_promotion_by_id/GetPromotionByIdResponse401.yaml
+          example:
+            timeStamp: 2021-02-15 21:14:00
+            message: Full authentication is required to access this resource
+            path: /promotions/6984
+            errorCode: INVALID_TOKEN
+            infoLink: null
+            details: []
+    '404':
+      description: Failed because the request was made to an incorrect URL path.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_promotion_by_id/GetPromotionByIdResponse404.yaml
+          example:
+            timeStamp: 2022-07-15 14:07:00
+            message: Promotion not found
+            path: /promotions/12
+            errorCode: null
+            infoLink: null
+            details: []

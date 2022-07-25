@@ -1,0 +1,63 @@
+post:
+  tags:
+    - FX Rates
+  summary: Fetch FX Rate
+  description: Retrieve the foreign exchange rate details of an operator by making a request with its identification number.
+  operationId: airtime/fx-rate
+  responses:
+    '200':
+      description: Successfully retrieved details of an operator's foreign exchange rate.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/fx_rate/FxRateResponse200.yaml
+          example:
+            id: 174
+            name: Natcom Haiti
+            fxRate: 465.00
+            currencyCode: HTG
+    '401':
+      description: Failed due to an unauthorized request.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/fx_rate/FxRateResponse401.yaml
+          example:
+            timeStamp: 2022-01-06 18:37:10
+            message: Full authentication is required to access this resource
+            path: /operators/fx-rate
+            errorCode: INVALID_TOKEN
+            infoLink: null
+            details: []
+    '404':
+      description: Failed because the request was made to an incorrect URL path.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/fx_rate/FxRateResponse404.yaml
+          example:
+            timeStamp: 2022-01-06 18:37:10
+            status: 404
+            error: Not Found
+            message: No message available
+            path: /operator/fx-rate
+    '500':
+      description: Failed because the request was made to an operator without a foreign exchange rate.
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/fx_rate/FxRateResponse500.yaml
+          example:
+            timeStamp: 2022-01-06 18:37:10
+            message: Fx rate is currently not available for this operator, please try again later or contact support.
+            path: /operators/fx-rate
+            errorCode: FX_RATE_NOT_AVAILABLE
+            infoLink: null
+            details: [] 
+  requestBody:
+    description: Payload Description
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/airtime/fx_rate/FxRateRequest.yaml

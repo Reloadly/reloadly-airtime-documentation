@@ -1,0 +1,112 @@
+get:
+  tags:
+    - Operators
+  summary: Auto Detect Operator
+  description: Retrieve the details of a mobile number by making a request using the mobile number and the ISO code of the country where it is registered.
+  operationId: airtime/auto-detect-an-operator
+  parameters:
+    - in: path
+      name: phone
+      description: The mobile number whose details are to be retrieved.
+      required: true
+      schema:
+        type: integer
+        example: 08147658721
+    - in: path
+      name: countryisocode
+      description: The ISO code of the country where the mobile number is registered.
+      required: true
+      schema:
+        type: string
+        example: NG
+    - in: query
+      name: suggestedAmountsMap
+      description: Indicates if this field should be returned as a response. Default value is false.
+      required: false
+      schema:
+        type: boolean
+        example: true
+    - in: query
+      name: suggestedAmounts
+      description: Indicates if this field should be returned as a response. Default value is false.
+      required: false
+      schema:
+        type: boolean
+        example: false
+  responses:
+    '200':
+      description: Successfully retrieved details of a mobile number
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/auto_detect_an_operator/AutoDetectAnOperatorResponse200.yaml
+          example:
+            id: 88
+            operatorId: 88
+            name: Movistar Colombia
+            bundle: false
+            data: false
+            pin: false
+            supportsLocalAmounts: false
+            denominationType: RANGE
+            senderCurrencyCode: USD
+            senderCurrencySymbol: $
+            destinationCurrencyCode: COP
+            destinationCurrencySymbol: $
+            commission: 4.42
+            internationalDiscount: 4.42
+            localDiscount: 0.00
+            mostPopularAmount: null
+            minAmount: 5.00
+            maxAmount: 5.00
+            localMinAmount: null
+            localMaxAmount: null
+            country:
+              isoName: CO
+              name: Colombia
+            fx:
+              rate: 2192.1867
+              currencyCode: COP
+            logoUrls:
+              - https://s3.amazonaws.com/rld-operator/3f4a8bcd3268-size-1.png
+              - https://s3.amazonaws.com/rld-operator/3f4a8bcd3268-size-2.png
+              - https://s3.amazonaws.com/rld-operator/3f4a8bcd3268-size-3.png
+            fixedAmounts: []
+            fixedAmountsDescriptions: []
+            localFixedAmounts: []
+            localFixedAmountsDescriptions: []
+            suggestedAmounts:
+              - 7
+              - 10
+              - 15
+            suggestedAmountsMap:
+              "7": 19482.51
+              "10": 27832.16
+              "15": 41748.23
+            promotions: []
+    '401':
+      description: Failed due to an unauthorized request
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/auto_detect_an_operator/AutoDetectAnOperatorResponse401.yaml
+          example:
+            timeStamp: 2021-03-15 21:14:00
+            message: Full authentication is required to access this resource
+            path: operators/auto-detect/phone/03238482221/countries/PK
+            errorCode: INVALID_TOKEN
+            infoLink: null
+            details: []
+    '404':
+      description: Failed because the request was made to an incorrect URL path
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/auto_detect_an_operator/AutoDetectAnOperatorResponse404.yaml
+          example:
+            timeStamp: 2021-02-11 11:54:00
+            message: Country code must be 2 characters ISO-Alpha-2 country code. See https://www.iban.com/country-codes
+            path: /operators/auto-detect/phone/03238482221/countries/PKGG
+            errorCode: null
+            infoLink: null
+            details: []

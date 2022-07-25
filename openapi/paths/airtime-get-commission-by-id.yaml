@@ -1,0 +1,58 @@
+get:
+  tags:
+    - Commissions
+  summary: Get Commission by Operator ID
+  description: Retrieve the details of a discount being offered by an operator by making a request with the operator's identification number. 
+  operationId: airtime/get-commission-by-id
+  parameters:
+    - in: path
+      name: operatorid
+      description: The operator's identification number.
+      required: true
+      schema:
+        type: integer
+        example: 341
+  responses:
+    '200':
+      description: Successfully retrieved details of an operator's discount(s)
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_commission_by_id/GetCommissionByIdResponse200.yaml
+          example:
+            operator:
+              operatorId: 1
+              name: Afghan Wireless Afghanistan
+              countryCode: AF
+              status: true
+              bundle: false
+            percentage: 10
+            internationalPercentage: 10
+            localPercentage: 0
+            updatedAt: 2021-06-26 03:36:16
+    '401':
+      description: Failed due to an unauthorized request
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_commission_by_id/GetCommissionByIdResponse401.yaml
+          example:
+            timeStamp: 2021-03-15 21:14:00
+            message: Full authentication is required to access this resource
+            path: /operators/128/commissions
+            errorCode: INVALID_TOKEN
+            infoLink: null
+            details: []
+    '404':
+      description: Failed because the request was made to an incorrect URL path
+      content:
+        'application/com.reloadly.topups-v1+json':
+          schema:
+            $ref: ../components/schemas/airtime/get_commission_by_id/GetCommissionByIdResponse404.yaml
+          example:
+            timeStamp: 2021-02-11 11:54:00
+            message: Operator not found for given id
+            path: /operators/12522/commissions
+            errorCode: null
+            infoLink: null
+            details: [] 

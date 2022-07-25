@@ -1,0 +1,26 @@
+type: object
+properties:
+  timeStamp:
+    description: The exact time the request for the country's details was made.
+    type: string
+    example: 2021-02-15 21:14:00
+  message:
+    description: The error message returned for the failed request.
+    type: string
+    example: Full authentication is required to access this resource
+  path:
+    description: The URL Path which the request was made through.
+    type: string
+    example: /countries/PK
+  errorCode:
+    description: The error code associated with the reason for the failed request.
+    type: string
+    example: INVALID_TOKEN
+  infoLink:
+    description: A link to further information about the error.
+    type: string
+    example: 
+  details: 
+    description: Further details of the error returned for the failed request.
+    type: array
+    example: 

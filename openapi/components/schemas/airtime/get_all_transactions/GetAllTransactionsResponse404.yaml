@@ -1,0 +1,26 @@
+type: object
+properties:
+  timeStamp:
+    description: The exact time the request for the transaction details was made.
+    type: string
+    example: 
+  message:
+    description: The error message received after the request was made.
+    type: string
+    example: 
+  path:
+    description: The URL path to which the request was made.
+    type: string
+    example:
+  errorCode:
+    description: The error code received after the request was made.
+    type: string
+    example: 
+  infoLink:
+    description: A link to further information about the error.
+    type: string
+    example: 
+  details: 
+    description: Further details of the error returned for the failed request.
+    type: array
+    example: 

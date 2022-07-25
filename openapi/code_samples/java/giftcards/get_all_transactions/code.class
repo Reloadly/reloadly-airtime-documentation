@@ -1,0 +1,10 @@
+OkHttpClient client = new OkHttpClient().newBuilder()
+  .build();
+Request request = new Request.Builder()
+  .url("https://giftcards.reloadly.com/reports/transactions?startDate=2021-06-01 00:00:00&endDate=2021-06-18 23:17:02")
+  .method("GET", null)
+  .addHeader("Authorization", "Bearer eyJraXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+  .addHeader("Content-Type", "application/json")
+  .addHeader("Accept", "application/com.reloadly.giftcards-v1+json")
+  .build();
+Response response = client.newCall(request).execute();

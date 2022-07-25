@@ -1,0 +1,40 @@
+post:
+  tags:
+    - Authentication
+  summary: Create Access Token
+  description: Reloadly employs the <a href="https://oauth.net/2/" target=__blank__> OAuth 2.0 standard</a>.Note that all API requests must be made over <a href='https://en.wikipedia.org/wiki/HTTP_Secure'>HTTPS</a>. Calls made over plain HTTP will fail. API requests without authentication will also fail. <br><br> Once successfully retrieved, your access token is then passed as a bearer token in the header of any API endpoint you wish to use in making a request.
+  operationId: authentication/access-token
+  security: []
+  responses:
+    '200':
+      description: Successfully created an access token.
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/authentication/access_token/AccessTokenResponse200.yaml
+          example:
+            access_token: eyJraWQiOiJjNGE1ZWU1Zi0xYmE2LTQ1N2UtOTI3Yi1lYzdiODliNzcxZTIiLCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2NzkzIiwiaXNzIjoiaHR0cHM6Ly9yZWxvYWRseS1zYW5kYm94LmF1dGgwLmNvbS8iLCJodHRwczovL3JlbG9hZGx5LmNvbS9zYW5kYm94Ijp0cnVlLCJodHRwczovL3JlbG9hZGx5LmNvbS9wcmVwYWlkVXNlcklkIjoiNjc5MyIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyIsImF1ZCI6Imh0dHBzOi8vZ2lmdGNhcmRzLXNhbmRib3gucmVsb2FkbHkuY29tIiwibmJmIjoxNjU4MDY2NDkxLCJhenAiOiI2NzkzIiwic2NvcGUiOiJkZXZlbG9wZXIiLCJleHAiOjE2NTgxNTI4OTEsImh0dHBzOi8vcmVsb2FkbHkuY29tL2p0aSI6ImIyMmY3MDRmLTJkMWEtNDZjMC1hYjUxLWZkMzAwNWQxNWM0MiIsImlhdCI6MTY1ODA2NjQdjwfbianRpIjoiMWM1ZmY5YTItNzJhMC00ZDg2LWFjZmYtZmU1NDMxNGU0OGQ4In0.P3f-eNbrjFuGHuDKNGjskzifPARaJPRMVS4gGisp0ZA
+            scope: developer
+            expires_in: 5184000
+            token_type: Bearer
+    '401':
+      description: Failed due to an unauthorized request.
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/authentication/access_token/AccessTokenResponse401.yaml
+          example:
+            timeStamp: 2022-01-06 10:57:50
+            message: Access Denied
+            path: /oauth/token
+            errorCode: INVALID_CREDENTIALS
+            infoLink: null
+            details: []
+   
+  requestBody:
+    description: Payload Description
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/authentication/access_token/AccessTokenRequest.yaml
