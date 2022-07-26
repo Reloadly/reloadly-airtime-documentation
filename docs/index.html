@@ -35,9 +35,41 @@
             align-items: center;
             justify-content: flex-start;
             background-color: #ffffff;
+            margin-bottom: 10px;
+            /* border-bottom: 1.5px solid #e6e6e6; */
+        }
+        .lower-header {
             border-bottom: 1.5px solid #e6e6e6;
+            background-color: #ffffff;
+            width: 100%;
+            margin: auto;
         }
 
+        .lower-header div {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            margin: auto auto auto 20px;
+        }
+
+        .lower-header p {
+            padding: 5px 5px 10px 5px;
+            margin: 0px 20px 1px 0px;
+            padding-bottom: 5px;
+        }
+
+        .lower-header p:hover {
+            color: #7700ff;
+        }
+
+        .lower-header a {
+            text-decoration: none;
+            font-family: "Jost";
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all ease .4s;
+        }
         a { color: inherit; } 
 
         .nav-menu {
@@ -343,6 +375,14 @@
             .signup-section a {
                 display: none;
             }
+            .lower-header div {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .lower-header p {
+                width: 142px;
+            }
 
             .docs-section {
                 display: none;
@@ -421,7 +461,7 @@
                     <div class="link">
                         <img class="docs-logo"
                             src="https://res.cloudinary.com/reloadlydevelopers/image/upload/v1657215746/docs_upj9pe.svg" />
-                        <a href="https://developers2.reloadly.com/" target="_blank">Docs</a>
+                        <a href="https://developers2.reloadly.com/airtime/introduction" target="_blank">Docs</a>
                     </div>
                     <div class="link">
                         <img class="support-logo"
@@ -434,6 +474,13 @@
                     <a href="https://www.reloadly.com/" target="_blank">Create Account</a>
                     <a id="signup-button" href="https://www.reloadly.com/" target="_blank"><button>Sign in</button></a>
                 </section>
+            </div>
+        </div>
+        <div class="lower-header">
+            <div>
+              <p style="border-bottom: solid 2px #7700ff;"><a href="https://docs2.reloadly.com/airtime">Airtime API</a></p>
+              <p><a href="https://docs2.reloadly.com/gift-cards">Gift Cards API</a></p>
+              <p><a href="https://docs2.reloadly.com/utility-payments">Utility Payments API</a></p>
             </div>
         </div>
         <div class="sideMenu" id="sideNav">
