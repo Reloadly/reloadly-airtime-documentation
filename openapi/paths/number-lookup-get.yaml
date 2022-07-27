@@ -1,6 +1,6 @@
 get:
   tags:
-    - Number Lookup
+    - MNP Lookup
   summary: Number Lookup - GET
   description: The **GET** method receives the mobile number and the given <a href="https://en.wikipedia.org/wiki/ISO_3166-1" target=__blank__>ISO code</a> of the country where the mobile number is registered as path parameters to make this request. A developer may make use of the **GET** method when retrieving the details of a number under the following circumstances <br> <br> &#9679; &nbsp; The number details to be retrieved need to be cached. <br> &#9679; &nbsp; The number details to be retrieved are not sensitive - this is determined by the use case involved. <br> &#9679; &nbsp; Details for a single mobile number are required.
   operationId: number-lookup/get

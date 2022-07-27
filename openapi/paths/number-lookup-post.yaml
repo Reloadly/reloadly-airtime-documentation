@@ -1,6 +1,6 @@
 post:
   tags:
-    - Number Lookup
+    - MNP Lookup
   summary: Number Lookup - POST
   description: The **POST** method receives the mobile number and the given <a href="https://en.wikipedia.org/wiki/ISO_3166-1" target=__blank__>ISO code</a> of the country where the mobile number is registered as body parameters to make this request. A developer may make use of the **POST** method when retrieving the details of a number under the following conditions <br> <br> &#9679; &nbsp; The number details to be retrieved are not to be stored or cached. <br> &#9679; &nbsp; The number details to be retrieved are sensitive  and need to be protected. <br> &#9679; &nbsp; Details for multiple mobile numbers are required.
   operationId: numberlookup/post 
