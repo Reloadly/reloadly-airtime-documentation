@@ -14,6 +14,7 @@ get:
           example:
             - isoName: AF
               name: Afghanistan
+              continent: Asia
               currencyCode: AFN
               currencyName: Afghan Afghani
               currencySymbol: ؋

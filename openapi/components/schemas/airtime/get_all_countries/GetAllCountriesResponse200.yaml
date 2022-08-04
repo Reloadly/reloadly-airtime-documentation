@@ -10,6 +10,10 @@ items:
       description: This indicates the country's name
       type: string
       example: Afghanistan
+    continent:
+      description: This indicates the name of the continent where the country is located
+      type: string
+      example: Asia
     currencyCode:
       description: This indicates the code of the country's currency
       type: string
