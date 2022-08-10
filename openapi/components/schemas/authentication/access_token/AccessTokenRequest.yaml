@@ -15,4 +15,4 @@ properties:
   audience:
     description: The product which the access token is to be used for.
     type: string
-    example: https://giftcards.reloadly.com
+    example: https://topups.reloadly.com
