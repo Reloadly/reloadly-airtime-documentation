@@ -58,9 +58,9 @@ paths:
     $ref: paths/airtime-accounts-balance.yaml
     servers:
       - url: https://topups.reloadly.com
-        description: Airtime Production
+        description: Production
       - url: https://topups-sandbox.reloadly.com
-        description: Airtime Sandbox
+        description: Sandbox
       
   /countries:
     $ref: paths/airtime-get-all-countries.yaml
